@@ -1,0 +1,91 @@
+/* ===== Modal tipo tarjeta centrada (funcional y responsivo) ===== */
+
+ion-modal.custom-modal {
+  --width: 90%;
+  --max-width: 500px;
+  --border-radius: 16px;
+  --box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+  --backdrop-opacity: 0.4;
+  --backdrop-background: rgba(0, 0, 0, 0.4);
+  --max-height: 90vh;
+}
+
+/* Fondo desenfocado */
+ion-modal.custom-modal::part(backdrop) {
+  backdrop-filter: blur(4px);
+}
+
+/* Cuerpo del modal */
+ion-modal.custom-modal::part(content) {
+  background: #fff;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  overflow: hidden;
+}
+
+/* Header y Footer */
+ion-modal.custom-modal ion-header,
+ion-modal.custom-modal ion-footer {
+  background-color: #fff;
+  border-color: #e0e0e0;
+  border-style: solid;
+}
+
+ion-modal.custom-modal ion-header {
+  border-width: 0 0 1px 0;
+}
+
+ion-modal.custom-modal ion-footer {
+  border-width: 1px 0 0 0;
+  padding: 10px;
+}
+
+/* Scroll interno */
+ion-modal.custom-modal ion-content::part(scroll) {
+  padding: 16px;
+  overflow-y: auto;
+}
+
+/* ===== Ajuste responsive (solo en pantallas pequeñas) ===== */
+@media (max-width: 768px) {
+  ion-modal.custom-modal {
+    --width: 95%;
+    --max-width: 95%;
+    --max-height: 80vh; /* 80% de la altura en móviles */
+  }
+
+  ion-modal.custom-modal::part(content) {
+    max-height: 80vh;
+  }
+}
+/* ===== Estilo de botones del modal ===== */
+ion-modal.custom-modal ion-footer ion-button {
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  border-radius: 8px;
+  padding: 6px 14px;
+}
+
+/* Botón Cancelar */
+ion-modal.custom-modal ion-footer ion-button[fill="outline"] {
+  --border-color: #666;
+  --color: #222;
+}
+
+/* Botón Guardar */
+ion-modal.custom-modal ion-footer ion-button[color="primary"] {
+  --background: #3880ff;
+  --background-hover: #3171e0;
+  --color: white;
+  --border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(56, 128, 255, 0.3);
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+/* Efecto hover para desktop */
+ion-modal.custom-modal ion-footer ion-button[color="primary"]:hover {
+  transform: translateY(-1px);
+}
