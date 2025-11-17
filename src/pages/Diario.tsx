@@ -1,4 +1,5 @@
 // src/pages/Diario.tsx
+import "../assets/styles/general.css";  
 import "./Diario.css"; 
 
 import {
@@ -92,11 +93,12 @@ const Diario: React.FC = () => {
     <IonPage ref={pageRef as any}>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Mi Diario</IonTitle>
+          <IonTitle className="titulo">MindJournal</IonTitle>
+          <span className="subtitulo">Tu diario emocional</span>
         </IonToolbar>
       </IonHeader>
 
-      <IonContent className="ion-padding">
+      <IonContent className="content" fullscreen>
         {items.length === 0 && (
           <IonNote>
             Crea tu primera entrada con el botón <b>+</b> abajo a la derecha.

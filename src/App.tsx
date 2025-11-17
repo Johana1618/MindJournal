@@ -10,7 +10,7 @@ import {
 import { IonReactRouter } from "@ionic/react-router";
 import { Route, Redirect } from "react-router-dom";
 import {
-  bookOutline,
+  homeOutline,
   statsChartOutline,
   searchOutline,
   settingsOutline,
@@ -36,8 +36,8 @@ const App: React.FC = () => (
 
         <IonTabBar slot="bottom">
           <IonTabButton tab="diario" href="/diario">
-            <IonIcon icon={bookOutline} />
-            <IonLabel>Diario</IonLabel>
+            <IonIcon icon={homeOutline} />
+            <IonLabel>Inicio</IonLabel>
           </IonTabButton>
 
           <IonTabButton tab="estadisticas" href="/estadisticas">

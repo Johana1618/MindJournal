@@ -62,11 +62,12 @@ const Estadisticas: React.FC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Estadísticas</IonTitle>
+          <IonTitle className="titulo">Estadísticas</IonTitle>
+          <span className="subtitulo">Analiza tu estado emocional</span>
         </IonToolbar>
       </IonHeader>
 
-      <IonContent className="ion-padding">
+      <IonContent className="content" fullscreen>
         {loading ? (
           <div style={{ textAlign: "center", marginTop: "40px" }}>
             <IonSpinner name="crescent" />

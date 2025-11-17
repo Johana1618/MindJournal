@@ -1,0 +1,119 @@
+/* Contenedor interior para márgenes bonitos */
+.busqueda-inner {
+  padding: 16px;
+}
+
+/* Toolbar superior (Morado clarito si quieres) */
+.busqueda-toolbar {
+  --background: #f7ecff;
+  --border-color: transparent;
+}
+
+.busqueda-toolbar-title {
+  font-weight: 700;
+  color: #4b0082;
+}
+
+/* Fila título + chip de estado */
+.busqueda-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.busqueda-title {
+  margin: 0;
+  font-size: 32px;
+  font-weight: 800;
+  color: #7a1cff;
+}
+
+/* Chip “Offline” */
+.status-chip {
+  border-radius: 999px;
+  font-size: 12px;
+}
+
+.status-icon {
+  margin-right: 4px;
+}
+
+/* Searchbar */
+.busqueda-searchbar {
+  --border-radius: 999px;
+  --background: #ffffff;
+  --color: #333;
+  --placeholder-color: #999;
+  --box-shadow: 0 0 0 1px #d2c4ff;
+  margin-bottom: 8px;
+}
+
+/* Texto de resultados */
+.results-text {
+  font-size: 14px;
+  color: #7a7a7a;
+  margin: 8px 4px 16px;
+}
+
+/* Lista de tarjetas */
+.entries-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Tarjeta de entrada */
+.entry-card {
+  border-radius: 20px;
+  box-shadow: none;
+  background: #ffffff;
+}
+
+/* Header de la tarjeta: emoji + estado + fecha */
+.entry-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 4px;
+}
+
+.entry-mood {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.entry-emoji {
+  font-size: 22px;
+}
+
+.entry-mood-label {
+  font-weight: 700;
+  color: #4b0082;
+  font-size: 14px;
+}
+
+.entry-date {
+  font-size: 12px;
+  color: #9b9b9b;
+}
+
+/* Contenido de la tarjeta */
+.entry-card-content {
+  padding-top: 0;
+}
+
+.entry-text {
+  margin: 0;
+  font-size: 14px;
+  color: #444;
+}
+
+/* Mensaje vacío */
+.empty-text {
+  margin-top: 24px;
+  text-align: center;
+  color: #9b9b9b;
+  font-size: 14px;
+}

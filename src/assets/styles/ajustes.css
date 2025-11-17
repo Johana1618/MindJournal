@@ -1,0 +1,163 @@
+/* Fila: Ajustes + chip Offline */
+.ajustes-top-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.ajustes-title {
+  margin: 0;
+  font-size: 32px;
+  font-weight: 800;
+  color: #7a1cff;
+}
+
+/* Chip Offline */
+.status-chip {
+  border-radius: 999px;
+  font-size: 12px;
+  height: 26px;
+}
+
+/* Tarjeta de usuario */
+.user-card {
+  border-radius: 20px;
+  background: #ffffff;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  margin-bottom: 20px;
+}
+
+.user-card-content {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  column-gap: 14px;
+}
+
+.user-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #a66bff, #6dd5ff);
+  color: white;
+  font-size: 28px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.user-name {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+  color: #4b0082;
+}
+
+/* Titulares de secciones */
+.section-title {
+  margin: 16px 4px 8px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #4b0082;
+}
+
+/* Tarjetas de ajustes */
+.setting-card {
+  border-radius: 20px;
+  background: #ffffff;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.04);
+  margin-bottom: 12px;
+}
+
+/* CONTENEDOR GRID GENERAL: texto izquierda, control/flecha derecha */
+.setting-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto; /* izquierda | derecha */
+  align-items: center;
+  column-gap: 12px;
+}
+
+/* Columna izquierda (por defecto, columna vertical) */
+.setting-left {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Cuando hay icono + textos (fila de icono) */
+.icon-row {
+  flex-direction: row;
+  align-items: center;
+  column-gap: 12px;
+}
+
+/* Iconos */
+.setting-icon {
+  font-size: 24px;
+}
+
+.purple {
+  color: #7a1cff;
+}
+
+.red {
+  color: #e53e3e;
+}
+
+/* Textos de los ajustes */
+.setting-texts p {
+  margin: 0;
+}
+
+.setting-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #4b0082;
+}
+
+.setting-sub {
+  font-size: 13px;
+  color: #868686;
+}
+
+/* VALOR (hora) bajo el título, centrado */
+.setting-sub-value {
+  margin: 2px 0 0;
+  font-size: 14px;
+  color: #7a1cff;
+  font-weight: 600;
+}
+
+/* Card específica de "Configurar horario": bloque centrado */
+.setting-card-time .setting-left {
+  align-items: center;
+  text-align: center;
+}
+
+/* Toggle a la derecha */
+.setting-toggle {
+  justify-self: end; /* en la columna derecha del grid */
+}
+
+/* Flecha a la derecha */
+.arrow-icon {
+  font-size: 22px;
+  color: #b2a4d4;
+  justify-self: end; /* pegada al borde derecho */
+}
+
+/* Tarjeta de peligro (eliminar datos) */
+.danger {
+  background: #ffe8e8;
+}
+
+.danger .setting-title,
+.danger .setting-sub {
+  color: #d32f2f;
+}
+
+/* Hacer que parezca clickable */
+.clickable {
+  cursor: pointer;
+}

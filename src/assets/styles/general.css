@@ -1,0 +1,17 @@
+.titulo{
+        font-family: cursive;
+    font-weight: bolder;
+    color: #5e17eb;
+}
+
+.subtitulo{
+font-size: 14px;
+    color: #333333;
+    display: block;
+    margin: 2px 25px;
+}
+
+.content {
+  --background: #f7ecff;
+  padding: 16px;
+}
