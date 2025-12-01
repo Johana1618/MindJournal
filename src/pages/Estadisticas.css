@@ -1,46 +1,363 @@
-/* ===== Estilos para la página de Estadísticas ===== */
-
-ion-card {
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-  border-radius: 12px;
+/* Fondo general, mismo tono que Diario */
+.estadisticas-page {
+  --ion-background-color: #f9ecff;
+  background-color: #f9ecff;
 }
 
-ion-card-title {
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: #222;
-  text-align: center;
-  margin-bottom: 10px;
+/* Toolbar / encabezado superior */
+.app-toolbar {
+  --background: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
-ion-card-content {
+.app-brand {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  padding: 0.75rem 1.5rem;
+}
+
+.app-logo {
+  font-weight: 800;
+  font-size: 1.35rem;
+  color: #7b2cff;
+}
+
+.app-subtitle {
+  font-size: 0.8rem;
+  color: #666;
+}
+
+/* Layout principal: menú lateral + contenido */
+.stats-layout {
+  max-width: 1200px;
+  margin: 1.5rem auto 2.5rem;
+  padding: 0 1rem;
+  display: flex;
+  gap: 1.75rem;
+  align-items: flex-start;
+}
+
+/* Tarjeta menú lateral */
+.side-card {
+  width: 260px;
+  background: #ffffff;
+  border-radius: 24px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  padding: 1.5rem 1.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+/* Navegación lateral */
+.side-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-top: 0.75rem;
+}
+
+.side-nav-item {
+  width: 100%;
+  border: none;
+  background: transparent;
+  display: flex;
   align-items: center;
+  gap: 0.6rem;
+  padding: 0.55rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  color: #555;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, transform 0.1s ease;
+}
+
+.side-nav-item ion-icon {
+  font-size: 1.15rem;
+}
+
+.side-nav-item:hover {
+  background: #f2e6ff;
+  transform: translateY(-1px);
+}
+
+.side-nav-item.active {
+  background: #7b2cff;
+  color: #ffffff;
+}
+
+/* Estado Online */
+.side-status {
+  margin-top: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.6rem;
+  border-radius: 999px;
+  background: #e8ffe8;
+  color: #279327;
+  font-size: 0.75rem;
+}
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #29b529;
+}
+
+/* Contenido principal de estadísticas */
+.stats-main {
+  flex: 1;
+}
+
+/* Tarjetas generales */
+.stats-card {
+  background: #ffffff;
+  border-radius: 24px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+  padding: 1.3rem 1.6rem;
+  margin-bottom: 1.5rem;
+}
+
+.stats-card-title {
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+/* Últimos 7 días */
+.stats-week {
+  margin-bottom: 1.8rem;
+}
+
+.week-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.week-day {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.week-mood-badge {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #f3f0ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+}
+
+.week-mood-badge.mood-empty {
+  color: #bbb;
+}
+
+.week-mood-badge.mood-feliz {
+  background: #fff9e0;
+}
+
+.week-mood-badge.mood-triste {
+  background: #e5f1ff;
+}
+
+.week-mood-badge.mood-ansioso {
+  background: #ffecef;
+}
+
+.week-mood-badge.mood-tranquilo {
+  background: #e5fff5;
+}
+
+.week-mood-badge.mood-motivado {
+  background: #fff1e3;
+}
+
+.week-day-label {
+  font-size: 0.8rem;
+  color: #666;
+}
+
+/* Fila inferior: dos columnas */
+.stats-bottom-row {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: 1.3rem;
+}
+
+/* Tarjeta días felices */
+.stats-happy {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: linear-gradient(90deg, #ffc857, #ff9f43);
+  color: #ffffff;
+}
+
+.happy-emoji {
+  font-size: 2.5rem;
+}
+
+.happy-info {
+  display: flex;
   flex-direction: column;
 }
 
-.chart-container {
-  width: 100%;
-  height: 300px;
-  margin-top: 20px;
+.happy-number {
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 1;
 }
 
-/* Texto del mensaje cuando no hay datos */
-.no-data {
-  text-align: center;
-  color: #777;
-  margin-top: 50px;
-  font-size: 0.95rem;
+.happy-label {
+  font-size: 0.9rem;
+  text-transform: uppercase;
 }
 
-/* Ajuste responsive */
-@media (max-width: 768px) {
-  .chart-container {
-    height: 250px;
+/* Tarjeta distribución emociones */
+.stats-distribution {
+  padding-bottom: 1.2rem;
+}
+
+.dist-list {
+  margin-top: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.dist-row {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.6fr) auto;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.dist-label {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.9rem;
+}
+
+.dist-emoji {
+  font-size: 1.2rem;
+}
+
+.dist-bar-wrapper {
+  position: relative;
+  height: 8px;
+  border-radius: 999px;
+  background: #f0f0f0;
+  overflow: hidden;
+}
+
+.dist-bar-fill {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: #ff9f43;
+  transform-origin: left;
+}
+
+.dist-percentage {
+  font-size: 0.8rem;
+  color: #555;
+}
+
+/* =========================
+   RESPONSIVE
+   ========================= */
+
+/* Hasta 900px: una columna, sin menú lateral */
+@media (max-width: 900px) {
+  .stats-layout {
+    flex-direction: column;
+    max-width: 100%;
+    margin: 1rem 0 2rem;
+    padding: 0 0.75rem;
   }
 
-  ion-card-title {
-    font-size: 1rem;
+  .side-card {
+    display: none;
+  }
+
+  .stats-bottom-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Hasta 600px: ajustes finos tipo móvil */
+@media (max-width: 600px) {
+  .app-brand {
+    padding: 0.6rem 1rem;
+  }
+
+  .app-logo {
+    font-size: 1.2rem;
+  }
+
+  .app-subtitle {
+    font-size: 0.75rem;
+  }
+
+  .stats-card {
+    padding: 1rem 1rem;
+    border-radius: 18px;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.06);
+  }
+
+  .stats-card-title {
+    font-size: 0.95rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .week-row {
+    gap: 0.5rem;
+  }
+
+  .week-mood-badge {
+    width: 34px;
+    height: 34px;
+    font-size: 1.1rem;
+  }
+
+  .week-day-label {
+    font-size: 0.7rem;
+  }
+
+  .stats-happy {
+    padding: 1rem;
+  }
+
+  .happy-emoji {
+    font-size: 2.1rem;
+  }
+
+  .happy-number {
+    font-size: 1.7rem;
+  }
+
+  .happy-label {
+    font-size: 0.8rem;
+  }
+
+  .dist-label {
+    font-size: 0.8rem;
+  }
+
+  .dist-emoji {
+    font-size: 1.1rem;
+  }
+
+  .dist-percentage {
+    font-size: 0.75rem;
   }
 }

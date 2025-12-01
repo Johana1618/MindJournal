@@ -1,119 +1,224 @@
-/* Contenedor interior para márgenes bonitos */
-.busqueda-inner {
-  padding: 16px;
+/* Fondo general */
+.search-page {
+  --background: #f9edff;
+  background: #f9edff;
 }
 
-/* Toolbar superior (Morado clarito si quieres) */
-.busqueda-toolbar {
-  --background: #f7ecff;
-  --border-color: transparent;
+/* Layout general */
+.search-layout {
+  display: grid;
+  grid-template-columns: 310px minmax(0, 1fr);
+  max-width: 1200px;
+  margin: 1.5rem auto 5rem;
+  gap: 1.5rem;
+  padding: 0 1.5rem;
 }
 
-.busqueda-toolbar-title {
-  font-weight: 700;
-  color: #4b0082;
+/* ==== MENÚ LATERAL (solo escritorio) ==== */
+.search-sidebar {
+  display: block;
 }
 
-/* Fila título + chip de estado */
-.busqueda-top-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 16px;
-}
-
-.busqueda-title {
-  margin: 0;
-  font-size: 32px;
-  font-weight: 800;
-  color: #7a1cff;
-}
-
-/* Chip “Offline” */
-.status-chip {
-  border-radius: 999px;
-  font-size: 12px;
-}
-
-.status-icon {
-  margin-right: 4px;
-}
-
-/* Searchbar */
-.busqueda-searchbar {
-  --border-radius: 999px;
-  --background: #ffffff;
-  --color: #333;
-  --placeholder-color: #999;
-  --box-shadow: 0 0 0 1px #d2c4ff;
-  margin-bottom: 8px;
-}
-
-/* Texto de resultados */
-.results-text {
-  font-size: 14px;
-  color: #7a7a7a;
-  margin: 8px 4px 16px;
-}
-
-/* Lista de tarjetas */
-.entries-list {
+.sidebar-card {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 1.5rem 1.25rem;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 1rem;
 }
 
-/* Tarjeta de entrada */
-.entry-card {
-  border-radius: 20px;
-  box-shadow: none;
-  background: #ffffff;
+.sidebar-logo {
+  font-weight: 800;
+  font-size: 1.4rem;
+  color: #7b2bff;
 }
 
-/* Header de la tarjeta: emoji + estado + fecha */
-.entry-card-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-bottom: 4px;
-}
-
-.entry-mood {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.entry-emoji {
-  font-size: 22px;
-}
-
-.entry-mood-label {
-  font-weight: 700;
-  color: #4b0082;
-  font-size: 14px;
-}
-
-.entry-date {
-  font-size: 12px;
-  color: #9b9b9b;
-}
-
-/* Contenido de la tarjeta */
-.entry-card-content {
-  padding-top: 0;
-}
-
-.entry-text {
+.sidebar-subtitle {
+  font-size: 0.8rem;
+  color: #888;
   margin: 0;
-  font-size: 14px;
+}
+
+.sidebar-nav {
+  margin-top: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.5rem 0.7rem;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  color: #444;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+}
+
+.sidebar-link ion-icon {
+  font-size: 1.1rem;
+}
+
+.sidebar-link:hover {
+  background: #f6f0ff;
+}
+
+.sidebar-link.active {
+  background: #7b2bff;
+  color: white;
+}
+
+.sidebar-status {
+  margin-top: 1rem;
+  padding: 0.4rem 0.7rem;
+  background: #e9ffe9;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  color: #228b22;
+}
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: #22c55e;
+}
+
+/* ==== CABECERA (título Búsqueda) ==== */
+.search-header {
+  padding: 0.5rem 1.5rem 0.75rem;
+}
+
+.search-header-title {
+  margin: 0;
+  font-size: 1.7rem;
+  font-weight: 800;
+  color: #7b2bff;
+}
+
+.search-header-subtitle {
+  margin: 0.1rem 0 0;
+  font-size: 0.85rem;
+  color: #666;
+}
+
+/* ==== CONTENIDO PRINCIPAL ==== */
+.search-main {
+  background: transparent;
+}
+
+/* Barra de búsqueda */
+.search-bar-wrapper {
+  margin-bottom: 0.75rem;
+}
+
+.search-bar {
+  --background: #ffffff;
+  --border-radius: 999px;
+  --padding-start: 0.8rem;
+  --padding-end: 0.8rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+  border-radius: 999px;
+}
+
+.search-bar ion-icon {
+  color: #999;
+}
+
+.search-clear {
+  cursor: pointer;
+}
+
+.search-results-info {
+  font-size: 0.85rem;
+  color: #777;
+  margin-bottom: 1rem;
+}
+
+/* Tarjetas de resultados */
+.search-results {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+}
+
+.search-card {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 1rem 1.25rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.search-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+}
+
+.search-card-mood {
+  font-weight: 600;
+}
+
+.search-card-date {
+  color: #888;
+  font-size: 0.8rem;
+}
+
+.search-card-text {
+  margin: 0.2rem 0;
+  font-size: 0.9rem;
   color: #444;
 }
 
-/* Mensaje vacío */
-.empty-text {
-  margin-top: 24px;
-  text-align: center;
-  color: #9b9b9b;
-  font-size: 14px;
+.search-card-tags {
+  margin: 0;
+  font-size: 0.8rem;
+  color: #777;
+}
+
+.search-card-tags span {
+  color: #7b2bff;
+}
+
+.search-empty {
+  grid-column: 1 / -1;
+  font-size: 0.9rem;
+  color: #777;
+}
+
+/* ==== RESPONSIVE ==== */
+@media (max-width: 900px) {
+  .search-layout {
+    grid-template-columns: 1fr;
+    margin-top: 0.5rem;
+    padding: 0 1rem 5rem;
+  }
+
+  .search-sidebar {
+    display: none; /* solo menú inferior en móvil */
+  }
+
+  .search-results {
+    grid-template-columns: 1fr;
+  }
+
+  .search-card {
+    max-width: 100%;
+  }
+
+  .search-header {
+    padding: 0.5rem 1rem 0.75rem;
+  }
 }

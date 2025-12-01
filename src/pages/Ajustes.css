@@ -4,7 +4,8 @@
   padding: 20px;
 }
 
-/* Título principal */
+/* Título principal interno (no se usa para el header grande, 
+   pero lo dejamos por si luego lo necesitas) */
 .ajustes-title {
   font-size: 32px;
   font-weight: 800;
@@ -12,18 +13,10 @@
   margin: 0 0 4px 0;
 }
 
+/* Fila superior (antes usábamos aquí el chip Online, 
+   ahora la dejamos oculta para no mostrar nada sobre la tarjeta de usuario) */
 .ajustes-top-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 22px;
-}
-
-/* Chip Estado */
-.status-chip {
-  height: 28px;
-  font-size: 14px;
-  font-weight: 600;
+  display: none;
 }
 
 /* ======== MENÚ LATERAL IZQUIERDO ======== */
@@ -64,22 +57,23 @@
 .user-card {
   border-radius: 22px;
   box-shadow: 0px 4px 12px rgb(0 0 0 / 10%);
-  margin-bottom: 25px;
+  margin-bottom: 20px;
 }
 
 .user-card-content {
   display: flex;
   align-items: center;
   gap: 18px;
+  padding: 14px 18px;
 }
 
 .user-avatar {
-  width: 65px;
-  height: 65px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   background: #a05bff;
   color: white;
-  font-size: 30px;
+  font-size: 28px;
   font-weight: 700;
   display: flex;
   align-items: center;
@@ -95,7 +89,7 @@
 .section-title {
   font-size: 18px;
   font-weight: 700;
-  margin: 20px 0 12px 0;
+  margin: 18px 0 10px 0;
   color: #6b3ec6;
 }
 
@@ -103,13 +97,14 @@
 .setting-card {
   border-radius: 18px;
   box-shadow: 0px 4px 12px rgb(0 0 0 / 10%);
-  margin-bottom: 18px;
+  margin-bottom: 14px;       /* un poco más pequeñas */
 }
 
 .setting-grid {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 10px 18px;        /* menos padding para hacerlas más compactas */
 }
 
 .setting-left {
@@ -129,23 +124,23 @@
 
 .setting-title {
   font-weight: 700;
-  font-size: 16px;
+  font-size: 15px;           /* un poquito más pequeño */
 }
 
 .setting-sub {
-  font-size: 14px;
+  font-size: 13px;
   color: #6d6d6d;
 }
 
 .setting-sub-value {
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 600;
   color: #7a2ff2;
 }
 
 .arrow-icon {
   color: #7a2ff2;
-  font-size: 22px;
+  font-size: 20px;
 }
 
 .red {
@@ -156,23 +151,33 @@
   background: #ffe5e5;
 }
 
+/* Iconos de las tarjetas */
+.setting-icon {
+  font-size: 24px;
+}
+
+.setting-icon.purple {
+  color: #7a2ff2;
+}
+
+/* cursor para tarjetas clickeables */
+.clickable {
+  cursor: pointer;
+}
+
 /* ======== RESPONSIVE MÓVIL ======== */
 @media (max-width: 900px) {
   .left-menu-container {
     display: none;
   }
 
-  .ajustes-top-row {
-    margin-top: 10px;
-  }
-
   .user-card {
-    margin-top: 15px;
+    margin-top: 10px;
   }
 
   .setting-grid {
     flex-direction: column;
     align-items: flex-start;
-    gap: 10px;
+    gap: 8px;
   }
 }

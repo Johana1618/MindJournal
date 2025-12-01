@@ -61,6 +61,7 @@ ion-modal.custom-modal ion-content::part(scroll) {
     max-height: 80vh;
   }
 }
+
 /* ===== Estilo de botones del modal ===== */
 ion-modal.custom-modal ion-footer ion-button {
   font-weight: 600;
@@ -89,3 +90,264 @@ ion-modal.custom-modal ion-footer ion-button[color="primary"] {
 ion-modal.custom-modal ion-footer ion-button[color="primary"]:hover {
   transform: translateY(-1px);
 }
+
+/* ===== Fondo general de la página ===== */
+
+.diario-page {
+  --background: #f6e9ff;
+  background: #f6e9ff;
+}
+
+/* Contenedor centrado del contenido (para que no se vea la mitad negra) */
+.diario-inner {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* Header y logo */
+
+.diario-toolbar {
+  --background: #ffffff;
+  --color: #333;
+}
+
+.diario-logo {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  font-weight: 700;
+  color: #7a2bd6;
+}
+.diario-logo-title {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-weight: 800;
+  font-size: 1.4rem;
+  color: #7a2bd6; /* morado intenso tipo mockup */
+}
+
+.diario-logo-subtitle {
+  font-size: 0.8rem;
+  color: #777;
+  margin-top: 2px;
+}
+
+/* Texto bajo el título */
+
+.diario-empty {
+  display: block;
+  margin: 12px 0 20px;
+}
+
+/* Tarjeta "Estado de hoy" */
+
+.estado-hoy-card {
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+}
+
+.mood-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.mood-chip {
+  --background: #ffffff;
+  --color: #333;
+}
+
+.mood-emoji {
+  margin-right: 4px;
+}
+
+/* Sección "Mis entradas" */
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 16px 4px 8px;
+}
+
+.section-header h2 {
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+.entrada-col {
+  margin-bottom: 8px;
+}
+
+.entrada-card {
+  border-radius: 16px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+}
+
+.entrada-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.entrada-text {
+  margin: 4px 0 6px;
+  font-size: 0.9rem;
+}
+
+.entrada-tags {
+  display: block;
+  margin-bottom: 6px;
+}
+
+.entrada-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 4px;
+}
+
+/* ===== Sidebar tipo mockup (solo escritorio) ===== */
+
+.sidebar-col {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .sidebar-col {
+    display: block;
+  }
+}
+
+.sidebar {
+  background: #ffffff;
+  border-radius: 0 16px 16px 0;
+  padding: 16px 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.sidebar-menu {
+  margin-top: 8px;
+}
+
+/* Cada item del menú */
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 4px;
+  transition: background 0.15s ease, color 0.15s ease, transform 0.1s ease;
+}
+
+.sidebar-item:hover {
+  background: #f4e8ff;
+  transform: translateX(1px);
+}
+
+.sidebar-item.active {
+  background: #f3e4ff;
+  color: #7a2bd6;
+  font-weight: 600;
+}
+
+.sidebar-icon {
+  font-size: 1.4rem;
+}
+
+/* Estado "online" al final del sidebar */
+
+.sidebar-status {
+  margin-top: 12px;
+  font-size: 0.75rem;
+}
+
+.sidebar-status-pill {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #e4ffe3;
+  color: #1e7c1d;
+  font-weight: 600;
+}
+
+/* Estilos del modal de crear .entrada-actions===== Estilos modal tipo mockup ===== */
+
+.entry-modal-title {
+  font-weight: 700;
+  color: #7a2bd6;
+  font-size: 1.1rem;
+}
+
+.entry-modal-content {
+  padding-top: 12px;
+}
+
+.entry-modal-label {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.entry-modal-divider {
+  margin-top: 12px;
+  font-weight: 600;
+  color: #777;
+}
+
+/* Fila de estado de ánimo dentro del modal */
+.entry-mood-item {
+  --padding-start: 12px;
+  --inner-padding-end: 12px;
+  font-size: 0.95rem;
+}
+
+.entry-mood-item .mood-emoji {
+  margin-right: 8px;
+  font-size: 1.3rem;
+}
+
+/* Calendario centrado y más compacto */
+.entry-modal-calendar {
+  margin-top: 12px;
+  padding-top: 8px;
+  border-top: 1px solid #eee;
+  display: flex;
+  justify-content: center;
+}
+
+.entry-modal-calendar ion-datetime {
+  max-width: 320px;
+  width: 100%;
+  --background: #fff;
+}
+
+/* Tags debajo del calendario */
+.entry-modal-tags {
+  margin-top: 8px;
+}
+
+/* Botones del modal */
+.entry-modal-footer ion-button {
+  margin-right: 8px;
+}
+/* Centrar botones del modal "¿Cómo estás hoy ?" */
+.entry-modal-footer ion-buttons {
+  display: flex;
+  justify-content: flex-end;   /* si los quieres a la izquierda: flex-start */
+  width: 100%;
+}
+
+.entry-modal-footer ion-button {
+  margin: 0 6px;
+}
+

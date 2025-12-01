@@ -4,7 +4,6 @@ import {
   IonToolbar,
   IonTitle,
   IonContent,
-  IonChip,
   IonIcon,
   IonCard,
   IonCardContent,
@@ -12,7 +11,10 @@ import {
 } from "@ionic/react";
 
 import {
-  wifiOutline,
+  homeOutline,
+  barChartOutline,
+  searchOutline,
+  settingsOutline,
   notificationsOutline,
   lockClosedOutline,
   trashOutline,
@@ -21,113 +23,216 @@ import {
 
 import "../assets/styles/general.css";
 import "../assets/styles/ajustes.css";
+
 import { useState } from "react";
+import { useHistory } from "react-router";
 
 const Ajustes: React.FC = () => {
-  const [dailyReminder, setDailyReminder] = useState(true);
+  const history = useHistory();
+
+  // ============================
+  // ESTADOS
+  // ============================
+  const [dailyReminder, setDailyReminder] = useState(
+    localStorage.getItem("dailyReminder") === "true"
+  );
+
+  const [reminderTime, setReminderTime] = useState(
+    localStorage.getItem("reminderTime") || "20:00"
+  );
+
+  // ============================
+  // CAMBIAR HORA
+  // ============================
+  const handleChangeTime = () => {
+    const newTime = prompt(
+      "Ingresa la hora del recordatorio (formato HH:MM):",
+      reminderTime
+    );
+
+    if (newTime && /^\d{2}:\d{2}$/.test(newTime)) {
+      setReminderTime(newTime);
+      localStorage.setItem("reminderTime", newTime);
+    } else if (newTime) {
+      alert("Formato inválido. Usa HH:MM");
+    }
+  };
+
+  // ============================
+  // CONFIGURAR PIN (placeholder)
+  // ============================
+  const handleConfigurePin = () => {
+    alert("Aquí iría la configuración del PIN de seguridad (pendiente por implementar).");
+  };
+
+  // ============================
+  // BORRAR TODOS LOS DATOS
+  // ============================
+  const handleDeleteAll = () => {
+    const confirmDelete = window.confirm(
+      "¿Estás seguro de eliminar todos los datos? Esta acción no se puede deshacer."
+    );
+
+    if (confirmDelete) {
+      localStorage.clear();
+      alert("Todos los datos fueron eliminados correctamente.");
+      window.location.reload();
+    }
+  };
 
   return (
     <IonPage>
+      {/* HEADER */}
       <IonHeader>
         <IonToolbar>
-          <IonTitle className="titulo">Ajustes</IonTitle>
+          <div className="titulo-container">
+            <IonTitle className="titulo">Ajustes</IonTitle>
+            <p className="subtitulo">
+              Administra la configuración de tu diario
+            </p>
+          </div>
         </IonToolbar>
       </IonHeader>
 
+      {/* CONTENIDO */}
       <IonContent fullscreen className="content">
-        {/* Fila superior: Ajustes + chip Offline */}
-        <div className="ajustes-top-row">
-          <h1 className="ajustes-title">Ajustes</h1>
-          <IonChip className="status-chip" color="success">
-            <IonIcon icon={wifiOutline} />
-            <span>Offline</span>
-          </IonChip>
+        <div style={{ display: "flex" }}>
+          {/* ===== MENÚ IZQUIERDO (solo desktop) ===== */}
+          <div className="left-menu-container">
+            <ul>
+              <li onClick={() => history.push("/diario")}>
+                <IonIcon icon={homeOutline} /> Inicio
+              </li>
+
+              <li onClick={() => history.push("/estadisticas")}>
+                <IonIcon icon={barChartOutline} /> Estadísticas
+              </li>
+
+              <li onClick={() => history.push("/busqueda")}>
+                <IonIcon icon={searchOutline} /> Buscar
+              </li>
+
+              <li className="active">
+                <IonIcon icon={settingsOutline} /> Ajustes
+              </li>
+            </ul>
+
+            {/* Se eliminó el chip "Online" de este menú para que no aparezca */}
+          </div>
+
+          {/* ===== CONTENIDO PRINCIPAL ===== */}
+          <div style={{ width: "100%" }}>
+            {/* USER CARD */}
+            <IonCard className="user-card">
+              <IonCardContent className="user-card-content">
+                <div className="user-avatar">U</div>
+                <div className="user-info">
+                  <p className="user-name">Usuario</p>
+                </div>
+              </IonCardContent>
+            </IonCard>
+
+            {/* NOTIFICACIONES */}
+            <p className="section-title">Notificaciones</p>
+
+            {/* Recordatorio diario:
+                - Reduce un poco el alto con CSS
+                - El toggle guarda en localStorage */}
+            <IonCard className="setting-card">
+              <IonCardContent className="setting-grid">
+                <div className="setting-left icon-row">
+                  <IonIcon
+                    icon={notificationsOutline}
+                    className="setting-icon purple"
+                  />
+                  <div className="setting-texts">
+                    <p className="setting-title">Recordatorio diario</p>
+                    <p className="setting-sub">
+                      Recibe recordatorios para escribir
+                    </p>
+                  </div>
+                </div>
+
+                <IonToggle
+                  className="setting-toggle"
+                  checked={dailyReminder}
+                  onIonChange={(e) => {
+                    setDailyReminder(e.detail.checked);
+                    localStorage.setItem(
+                      "dailyReminder",
+                      e.detail.checked.toString()
+                    );
+                  }}
+                />
+              </IonCardContent>
+            </IonCard>
+
+            {/* CONFIGURAR HORARIO - clickable en toda la tarjeta */}
+            <IonCard
+              className="setting-card clickable setting-card-time"
+              onClick={handleChangeTime}
+            >
+              <IonCardContent className="setting-grid">
+                <div className="setting-left">
+                  <p className="setting-title">Configurar horario</p>
+                  <p className="setting-sub-value">{reminderTime}</p>
+                </div>
+
+                <IonIcon
+                  icon={chevronForwardOutline}
+                  className="arrow-icon"
+                />
+              </IonCardContent>
+            </IonCard>
+
+            {/* SEGURIDAD */}
+            <p className="section-title">Seguridad y Privacidad</p>
+
+            {/* PIN - clickable en toda la tarjeta */}
+            <IonCard
+              className="setting-card clickable"
+              onClick={handleConfigurePin}
+            >
+              <IonCardContent className="setting-grid">
+                <div className="setting-left icon-row">
+                  <IonIcon
+                    icon={lockClosedOutline}
+                    className="setting-icon purple"
+                  />
+                  <div className="setting-texts">
+                    <p className="setting-title">PIN de seguridad</p>
+                    <p className="setting-sub">
+                      Protege tu diario con un PIN
+                    </p>
+                  </div>
+                </div>
+
+                <IonIcon
+                  icon={chevronForwardOutline}
+                  className="arrow-icon"
+                />
+              </IonCardContent>
+            </IonCard>
+
+            {/* ELIMINAR TODO - clickable en toda la tarjeta */}
+            <IonCard
+              className="setting-card danger clickable"
+              onClick={handleDeleteAll}
+            >
+              <IonCardContent className="setting-grid">
+                <div className="setting-left icon-row">
+                  <IonIcon icon={trashOutline} className="setting-icon red" />
+                  <div className="setting-texts">
+                    <p className="setting-title red">Eliminar todos los datos</p>
+                    <p className="setting-sub red">
+                      Esta acción no se puede deshacer
+                    </p>
+                  </div>
+                </div>
+              </IonCardContent>
+            </IonCard>
+          </div>
         </div>
-
-        {/* USER CARD */}
-        <IonCard className="user-card">
-          <IonCardContent className="user-card-content">
-            <div className="user-avatar">U</div>
-            <div className="user-info">
-              <p className="user-name">Usuario</p>
-            </div>
-          </IonCardContent>
-        </IonCard>
-
-        {/* SECTION: NOTIFICACIONES */}
-        <p className="section-title">Notificaciones</p>
-
-        {/* DAILY REMINDER */}
-        <IonCard className="setting-card">
-          <IonCardContent className="setting-grid">
-            <div className="setting-left icon-row">
-              <IonIcon
-                icon={notificationsOutline}
-                className="setting-icon purple"
-              />
-              <div className="setting-texts">
-                <p className="setting-title">Recordatorio diario</p>
-                <p className="setting-sub">
-                  Recibe recordatorios para escribir
-                </p>
-              </div>
-            </div>
-
-            <IonToggle
-              className="setting-toggle"
-              checked={dailyReminder}
-              onIonChange={(e) => setDailyReminder(e.detail.checked)}
-            />
-          </IonCardContent>
-        </IonCard>
-
-        {/* CONFIGURAR HORARIO */}
-        <IonCard className="setting-card clickable setting-card-time">
-          <IonCardContent className="setting-grid">
-            <div className="setting-left">
-              <p className="setting-title">Configurar horario</p>
-              <p className="setting-sub-value">20:00</p>
-            </div>
-
-            <IonIcon icon={chevronForwardOutline} className="arrow-icon" />
-          </IonCardContent>
-        </IonCard>
-
-        {/* SECTION: SEGURIDAD */}
-        <p className="section-title">Seguridad y Privacidad</p>
-
-        {/* PIN DE SEGURIDAD */}
-        <IonCard className="setting-card clickable">
-          <IonCardContent className="setting-grid">
-            <div className="setting-left icon-row">
-              <IonIcon
-                icon={lockClosedOutline}
-                className="setting-icon purple"
-              />
-              <div className="setting-texts">
-                <p className="setting-title">PIN de seguridad</p>
-                <p className="setting-sub">Protege tu diario con un PIN</p>
-              </div>
-            </div>
-
-            <IonIcon icon={chevronForwardOutline} className="arrow-icon" />
-          </IonCardContent>
-        </IonCard>
-
-        {/* DELETE ALL */}
-        <IonCard className="setting-card danger clickable">
-          <IonCardContent className="setting-grid">
-            <div className="setting-left icon-row">
-              <IonIcon icon={trashOutline} className="setting-icon red" />
-              <div className="setting-texts">
-                <p className="setting-title red">Eliminar todos los datos</p>
-                <p className="setting-sub red">
-                  Esta acción no se puede deshacer
-                </p>
-              </div>
-            </div>
-          </IonCardContent>
-        </IonCard>
       </IonContent>
     </IonPage>
   );

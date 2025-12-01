@@ -1,130 +1,165 @@
 import {
-  IonContent,
-  IonHeader,
   IonPage,
-  IonTitle,
+  IonHeader,
   IonToolbar,
-  IonSearchbar,
-  IonChip,
+  IonContent,
+  IonInput,
   IonIcon,
-  IonCard,
-  IonCardHeader,
-  IonCardContent,
+  IonItem,
+  IonLabel,
 } from "@ionic/react";
-import "../assets/styles/general.css";  
-import "./Busqueda.css";
+import { searchOutline, closeOutline, homeOutline, barChartOutline, searchOutline as searchIcon, settingsOutline } from "ionicons/icons";
+import { useEffect, useMemo, useState } from "react";
 import * as Diary from "../services/diary";
 import { Entry } from "../services/diary";
-import { useEffect, useState, useMemo } from "react";
-
-const moodEmoji: Record<string, string> = {
-  feliz: "😃",
-  enamorado: "🥰",
-  ansioso: "😬",
-  triste: "😢",
-};
-
-function formatDate(dateISO: string) {
-  const d = new Date(dateISO);
-  return d.toLocaleDateString("es-ES", {
-    day: "2-digit",
-    month: "short",
-    year: "numeric",
-  });
-}
+import "./Busqueda.css";
 
 const Busqueda: React.FC = () => {
-  const [entries, setEntries] = useState<Entry[]>([]);
   const [query, setQuery] = useState("");
+  const [items, setItems] = useState<Entry[]>([]);
 
   useEffect(() => {
-    async function load() {
-      const data = await Diary.getAll();
-      setEntries(data);
-    }
+    const load = async () => {
+      const all = await Diary.getAll();
+      setItems(all);
+    };
     load();
   }, []);
 
-  const filteredEntries = useMemo(() => {
+  const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
-    if (!q) return entries;
-
-    return entries.filter((e) => {
-      const text = e.text?.toLowerCase() ?? "";
-      const mood = e.mood?.toLowerCase() ?? "";
-      const tags = (e.tags ?? []).map((t) => t.toLowerCase());
+    if (!q) return items;
+    return items.filter((e) => {
+      const text = (e.text || "").toLowerCase();
+      const mood = (e.mood || "").toLowerCase();
+      const tags = (e.tags || []).join(", ").toLowerCase();
+      const date = new Date(e.dateISO).toLocaleDateString();
       return (
         text.includes(q) ||
         mood.includes(q) ||
-        tags.some((t) => t.includes(q))
+        tags.includes(q) ||
+        date.includes(q)
       );
     });
-  }, [entries, query]);
+  }, [items, query]);
 
   return (
     <IonPage>
-      <IonHeader>
+      {/* CABECERA PRINCIPAL */}
+      <IonHeader className="main-header">
         <IonToolbar>
-          <IonTitle className="titulo">Busqueda</IonTitle>
+          <div className="search-header">
+            <h1 className="search-header-title">Búsqueda</h1>
+            <p className="search-header-subtitle">
+              Encuentra tus entradas por palabra, emoción o fecha
+            </p>
+          </div>
         </IonToolbar>
       </IonHeader>
 
-      <IonContent fullscreen className="content">
-        <div className="busqueda-inner">
-  
+      <IonContent fullscreen className="search-page">
+        <div className="search-layout">
+          {/* MENÚ LATERAL SOLO ESCRITORIO */}
+          <aside className="search-sidebar">
+            <div className="sidebar-card">
 
-          {/* Buscador */}
-          <IonSearchbar
-            className="busqueda-searchbar"
-            value={query}
-            placeholder="Hoy"
-            onIonChange={(e) => setQuery(e.detail.value ?? "")}
-            debounce={300}
-            showClearButton="always"
-          />
+              <nav className="sidebar-nav">
+                <a href="/diario" className="sidebar-link">
+                  <IonIcon icon={homeOutline} slot="start" />
+                  <span>Inicio</span>
+                </a>
 
-          {/* Contador de resultados */}
-          <p className="results-text">
-            {filteredEntries.length} resultados encontrados
-          </p>
+                <a href="/estadisticas" className="sidebar-link">
+                  <IonIcon icon={barChartOutline} slot="start" />
+                  <span>Estadísticas</span>
+                </a>
 
-          {/* Lista de resultados */}
-          <div className="entries-list">
-            {filteredEntries.map((entry) => {
-              const emoji =
-                moodEmoji[entry.mood?.toLowerCase() ?? ""] ?? "🙂";
-              const moodLabel =
-                entry.mood?.charAt(0).toUpperCase() +
-                  entry.mood?.slice(1).toLowerCase() || "Sin estado";
-              const preview =
-                entry.text.length > 80
-                  ? entry.text.slice(0, 80) + "..."
-                  : entry.text;
+                <a href="/busqueda" className="sidebar-link active">
+                  <IonIcon icon={searchIcon} slot="start" />
+                  <span>Buscar</span>
+                </a>
 
-              return (
-                <IonCard key={entry.id} className="entry-card">
-                  <IonCardHeader className="entry-card-header">
-                    <div className="entry-mood">
-                      <span className="entry-emoji">{emoji}</span>
-                      <span className="entry-mood-label">{moodLabel}</span>
-                    </div>
-                    <span className="entry-date">
-                      {formatDate(entry.dateISO)}
+                <a href="/ajustes" className="sidebar-link">
+                  <IonIcon icon={settingsOutline} slot="start" />
+                  <span>Ajustes</span>
+                </a>
+              </nav>
+
+              <div className="sidebar-status">
+                <span className="status-dot" />
+                <span>Online</span>
+              </div>
+            </div>
+          </aside>
+
+          {/* CONTENIDO PRINCIPAL */}
+          <main className="search-main">
+            {/* BUSCADOR */}
+            <div className="search-bar-wrapper">
+              <IonItem className="search-bar" lines="none">
+                <IonIcon icon={searchOutline} slot="start" />
+                <IonInput
+                  value={query}
+                  placeholder="Buscar por palabra, emoción o fecha..."
+                  onIonChange={(e) => setQuery(e.detail.value || "")}
+                />
+                {query && (
+                  <IonIcon
+                    icon={closeOutline}
+                    slot="end"
+                    className="search-clear"
+                    onClick={() => setQuery("")}
+                  />
+                )}
+              </IonItem>
+            </div>
+
+            {/* RESULTADOS */}
+            <div className="search-results-info">
+              {filtered.length === 1
+                ? "1 resultado encontrado"
+                : `${filtered.length} resultados encontrados`}
+            </div>
+
+            <div className="search-results">
+              {filtered.map((e) => (
+                <div key={e.id} className="search-card">
+                  <div className="search-card-header">
+                    <span className="search-card-mood">
+                      {{
+                        feliz: "😊 Feliz",
+                        triste: "😔 Triste",
+                        ansioso: "😰 Ansioso",
+                        tranquilo: "😌 Tranquilo",
+                        motivado: "🚀 Motivado",
+                      }[e.mood] || "😊"}
                     </span>
-                  </IonCardHeader>
-                  <IonCardContent className="entry-card-content">
-                    <p className="entry-text">{preview}</p>
-                  </IonCardContent>
-                </IonCard>
-              );
-            })}
+                    <span className="search-card-date">
+                      {new Date(e.dateISO).toLocaleDateString("es-ES", {
+                        day: "2-digit",
+                        month: "short",
+                        year: "numeric",
+                      })}
+                    </span>
+                  </div>
 
-            {filteredEntries.length === 0 && (
-              <p className="empty-text">
-                No hay resultados para “{query}”.
-              </p>
-            )}
-          </div>
+                  <p className="search-card-text">{e.text}</p>
+
+                  {e.tags?.length ? (
+                    <p className="search-card-tags">
+                      Tags: <span>{e.tags.join(", ")}</span>
+                    </p>
+                  ) : null}
+                </div>
+              ))}
+
+              {filtered.length === 0 && (
+                <p className="search-empty">
+                  No se encontraron resultados para “{query}”.
+                </p>
+              )}
+            </div>
+          </main>
         </div>
       </IonContent>
     </IonPage>

@@ -1,60 +1,79 @@
-import { Storage } from "@ionic/storage";
-import { v4 as uuid } from "uuid";
+// src/services/diary.ts
+
+const STORAGE_KEY = "mindjournal_entries_v1";
 
 export type Mood = "feliz" | "triste" | "ansioso" | "tranquilo" | "motivado";
 
 export interface Entry {
   id: string;
-  dateISO: string;
-  mood: Mood;
   text: string;
+  mood: Mood;
+  dateISO: string;   // fecha completa en ISO
   tags?: string[];
 }
 
-const STORAGE_KEY = "mj_entries";
-let storage: Storage | null = null;
-
-async function getStore() {
-  if (!storage) {
-    storage = new Storage({ name: "mindjournal" });
-    await storage.create();
+// Cargar desde localStorage
+function loadAll(): Entry[] {
+  if (typeof localStorage === "undefined") return [];
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return [];
+    const parsed = JSON.parse(raw) as Entry[];
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
   }
-  return storage;
 }
 
+// Guardar en localStorage
+function saveAll(entries: Entry[]) {
+  if (typeof localStorage === "undefined") return;
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
+}
+
+// Obtener todas las entradas
 export async function getAll(): Promise<Entry[]> {
-  const s = await getStore();
-  return (await s.get(STORAGE_KEY)) || [];
-}
-async function saveAll(list: Entry[]) {
-  const s = await getStore();
-  await s.set(STORAGE_KEY, list);
+  return loadAll();
 }
 
-export async function add(text: string, mood: Mood = "feliz", tags: string[] = []) {
-  const list = await getAll();
-  const e: Entry = { id: uuid(), dateISO: new Date().toISOString(), mood, text, tags };
-  list.push(e);
-  await saveAll(list);
-  return e;
+// Crear nueva entrada (con fecha opcional)
+export async function add(
+  text: string,
+  mood: Mood,
+  tags: string[] = [],
+  dateISO?: string
+): Promise<void> {
+  const entries = loadAll();
+
+  const nowISO = dateISO ?? new Date().toISOString();
+
+  const entry: Entry = {
+    id:
+      (typeof crypto !== "undefined" && "randomUUID" in crypto
+        ? crypto.randomUUID()
+        : Date.now().toString()) + "-" + entries.length,
+    text,
+    mood,
+    tags,
+    dateISO: nowISO,
+  };
+
+  entries.push(entry);
+  saveAll(entries);
 }
 
-export async function update(entry: Entry) {
-  const list = await getAll();
-  const i = list.findIndex(x => x.id === entry.id);
-  if (i >= 0) { list[i] = entry; await saveAll(list); }
+// Actualizar entrada existente
+export async function update(updated: Entry): Promise<void> {
+  const entries = loadAll();
+  const idx = entries.findIndex((e) => e.id === updated.id);
+  if (idx !== -1) {
+    entries[idx] = { ...updated };
+    saveAll(entries);
+  }
 }
 
-export async function remove(id: string) {
-  const list = await getAll();
-  await saveAll(list.filter(x => x.id !== id));
-}
-
-export async function search(q: string) {
-  const s = q.toLowerCase();
-  const list = await getAll();
-  return list.filter(e =>
-    e.text.toLowerCase().includes(s) ||
-    (e.tags || []).some(t => t.toLowerCase().includes(s))
-  );
+// Eliminar entrada
+export async function remove(id: string): Promise<void> {
+  const entries = loadAll().filter((e) => e.id !== id);
+  saveAll(entries);
 }
