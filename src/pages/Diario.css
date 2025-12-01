@@ -111,7 +111,6 @@ ion-modal.custom-modal ion-footer ion-button[color="primary"]:hover {
   --background: #ffffff;
   --color: #333;
 }
-
 .diario-logo {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
     sans-serif;
@@ -122,15 +121,15 @@ ion-modal.custom-modal ion-footer ion-button[color="primary"]:hover {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   font-weight: 800;
   font-size: 1.4rem;
-  color: #7a2bd6; /* morado intenso tipo mockup */
+  color: #7a2bd6;
+  letter-spacing: 0.02em;
 }
 
 .diario-logo-subtitle {
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   color: #777;
   margin-top: 2px;
 }
-
 /* Texto bajo el título */
 
 .diario-empty {
@@ -349,5 +348,42 @@ ion-modal.custom-modal ion-footer ion-button[color="primary"]:hover {
 
 .entry-modal-footer ion-button {
   margin: 0 6px;
+}
+/* Pill "Online" en el header (versión móvil/escritorio) */
+.header-status {
+  margin-right: 8px;
+}
+
+.header-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: #e4ffe3;        /* verde suave */
+  color: #1e7c1d;
+  font-size: 0.7rem;
+  font-weight: 600;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+}
+
+.header-status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: #22c55e;        /* puntico verde */
+}
+/* Ocultar el indicador Online del header SOLO en pantallas grandes */
+@media (min-width: 768px) {
+  .header-status {
+    display: none !important;
+  }
+}
+
+/* Mostrarlo normalmente en móviles */
+@media (max-width: 767px) {
+  .header-status {
+    display: flex !important;
+  }
 }
 

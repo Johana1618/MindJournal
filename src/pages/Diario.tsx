@@ -141,7 +141,7 @@ const Diario: React.FC = () => {
     text: t,
     mood,
     tags,
-    dateISO: entryDate,                     // ⬅ actualizamos fecha
+    dateISO: entryDate,
   });
     setShowEdit(null);
     resetForm();
@@ -169,13 +169,21 @@ const Diario: React.FC = () => {
     <IonPage ref={pageRef as any}>
       {/* HEADER */}
       <IonHeader>
-        <IonToolbar className="diario-toolbar">
-          <IonTitle className="diario-logo">
-            <div className="diario-logo-title">MindJournal</div>
-            <div className="diario-logo-subtitle">Tu diario emocional</div>
-          </IonTitle>
-        </IonToolbar>
-      </IonHeader>
+       <IonToolbar className="diario-toolbar">
+         <IonTitle className="diario-logo">
+           <div className="diario-logo-title">MindJournal</div>
+           <div className="diario-logo-subtitle">Tu diario emocional</div>
+         </IonTitle>
+     
+         {/* Pill de estado Online en el header (mockup) */}
+         <IonButtons slot="end" className="header-status">
+           <span className="header-status-pill">
+             <span className="header-status-dot" />
+             Online
+           </span>
+         </IonButtons>
+       </IonToolbar>
+     </IonHeader>
 
       {/* CONTENIDO PRINCIPAL */}
       <IonContent className="diario-page ion-padding">

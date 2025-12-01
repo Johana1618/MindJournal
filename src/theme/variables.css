@@ -1,2 +1,31 @@
 /* For information on how to create your own theme, please see:
 http://ionicframework.com/docs/theming/ */
+:root {
+  --ion-color-primary: #7a2bd6;
+  --ion-color-primary-rgb: 122, 43, 214;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-contrast-rgb: 255, 255, 255;
+  --ion-color-primary-shade: #6b25bd;
+  --ion-color-primary-tint: #8c40da;
+}
+
+/* si tienes bloques .ios y .md, pon lo mismo allí */
+
+.ios {
+  --ion-color-primary: #7a2bd6;
+  --ion-color-primary-rgb: 122, 43, 214;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-contrast-rgb: 255, 255, 255;
+  --ion-color-primary-shade: #6b25bd;
+  --ion-color-primary-tint: #8c40da;
+}
+
+.md {
+  --ion-color-primary: #7a2bd6;
+  --ion-color-primary-rgb: 122, 43, 214;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-contrast-rgb: 255, 255, 255;
+  --ion-color-primary-shade: #6b25bd;
+  --ion-color-primary-tint: #8c40da;
+}
+

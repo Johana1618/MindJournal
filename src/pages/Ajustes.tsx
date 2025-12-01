@@ -62,7 +62,9 @@ const Ajustes: React.FC = () => {
   // CONFIGURAR PIN (placeholder)
   // ============================
   const handleConfigurePin = () => {
-    alert("Aquí iría la configuración del PIN de seguridad (pendiente por implementar).");
+    alert(
+      "Aquí iría la configuración del PIN de seguridad (pendiente por implementar)."
+    );
   };
 
   // ============================
@@ -82,7 +84,7 @@ const Ajustes: React.FC = () => {
 
   return (
     <IonPage>
-      {/* HEADER */}
+      {/* HEADER con mismo estilo que Estadísticas/Búsqueda */}
       <IonHeader>
         <IonToolbar>
           <div className="titulo-container">
@@ -97,7 +99,7 @@ const Ajustes: React.FC = () => {
       {/* CONTENIDO */}
       <IonContent fullscreen className="content">
         <div style={{ display: "flex" }}>
-          {/* ===== MENÚ IZQUIERDO (solo desktop) ===== */}
+          {/* ===== MENÚ IZQUIERDO (solo escritorio) ===== */}
           <div className="left-menu-container">
             <ul>
               <li onClick={() => history.push("/diario")}>
@@ -116,13 +118,12 @@ const Ajustes: React.FC = () => {
                 <IonIcon icon={settingsOutline} /> Ajustes
               </li>
             </ul>
-
-            {/* Se eliminó el chip "Online" de este menú para que no aparezca */}
+            {/* Aquí ya NO mostramos el chip Online */}
           </div>
 
           {/* ===== CONTENIDO PRINCIPAL ===== */}
           <div style={{ width: "100%" }}>
-            {/* USER CARD */}
+            {/* TARJETA DE USUARIO */}
             <IonCard className="user-card">
               <IonCardContent className="user-card-content">
                 <div className="user-avatar">U</div>
@@ -135,9 +136,7 @@ const Ajustes: React.FC = () => {
             {/* NOTIFICACIONES */}
             <p className="section-title">Notificaciones</p>
 
-            {/* Recordatorio diario:
-                - Reduce un poco el alto con CSS
-                - El toggle guarda en localStorage */}
+            {/* Recordatorio diario */}
             <IonCard className="setting-card">
               <IonCardContent className="setting-grid">
                 <div className="setting-left icon-row">
@@ -167,7 +166,7 @@ const Ajustes: React.FC = () => {
               </IonCardContent>
             </IonCard>
 
-            {/* CONFIGURAR HORARIO - clickable en toda la tarjeta */}
+            {/* Configurar horario (tarjeta clickeable completa) */}
             <IonCard
               className="setting-card clickable setting-card-time"
               onClick={handleChangeTime}
@@ -185,10 +184,10 @@ const Ajustes: React.FC = () => {
               </IonCardContent>
             </IonCard>
 
-            {/* SEGURIDAD */}
+            {/* SEGURIDAD Y PRIVACIDAD */}
             <p className="section-title">Seguridad y Privacidad</p>
 
-            {/* PIN - clickable en toda la tarjeta */}
+            {/* PIN de seguridad */}
             <IonCard
               className="setting-card clickable"
               onClick={handleConfigurePin}
@@ -214,7 +213,7 @@ const Ajustes: React.FC = () => {
               </IonCardContent>
             </IonCard>
 
-            {/* ELIMINAR TODO - clickable en toda la tarjeta */}
+            {/* Eliminar todos los datos */}
             <IonCard
               className="setting-card danger clickable"
               onClick={handleDeleteAll}
@@ -223,7 +222,9 @@ const Ajustes: React.FC = () => {
                 <div className="setting-left icon-row">
                   <IonIcon icon={trashOutline} className="setting-icon red" />
                   <div className="setting-texts">
-                    <p className="setting-title red">Eliminar todos los datos</p>
+                    <p className="setting-title red">
+                      Eliminar todos los datos
+                    </p>
                     <p className="setting-sub red">
                       Esta acción no se puede deshacer
                     </p>
