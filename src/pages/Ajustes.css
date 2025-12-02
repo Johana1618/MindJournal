@@ -17,6 +17,12 @@
   border-right: 2px solid #ececec;
   flex-shrink: 0;
 }
+.titulo
+{font-family: "Gliker", sans-serif;
+  font-weight: 800;
+  font-size: 1.4rem;
+  color: #7a2bd6;
+  letter-spacing: 0.02em;}
 
 .left-menu-container ul {
   margin: 0;
@@ -50,6 +56,7 @@
 .ajustes-content {
   flex: 1;
   padding: 30px 50px;
+  background-color:#f9edff;
 }
 
 /* ============================
@@ -83,8 +90,8 @@
   font-weight: bold;
 }
 
-.user-name {
-  font-size: 32px;
+.user-info .user-name {
+  font-size: 40px;
   color: #7b3ff3;
   font-weight: 800;
 }

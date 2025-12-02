@@ -21,7 +21,7 @@ import {
   chevronForwardOutline,
 } from "ionicons/icons";
 
-import "../assets/styles/ajustes.css";
+import "./Ajustes.css";
 import { useState } from "react";
 import { useHistory } from "react-router";
 
