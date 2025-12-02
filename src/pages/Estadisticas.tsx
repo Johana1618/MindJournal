@@ -183,7 +183,7 @@ const Estadisticas: React.FC = () => {
                 onClick={() => history.push("/diario")}
               >
                 <IonIcon icon={homeOutline} />
-                <span>Inicio</span>
+                <span>Inicijhiohoho</span>
               </button>
 
               <button
@@ -226,7 +226,7 @@ const Estadisticas: React.FC = () => {
                 <IonIcon icon={wifiOutline} />
                 <span className="icon-slash" />
               </span>
-              <span>Offline</span>
+              <span>Offlinessss</span>
             </div>
           </aside>
 

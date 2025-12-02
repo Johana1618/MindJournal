@@ -434,6 +434,7 @@ const Diario: React.FC = () => {
         </IonModal>
       </IonContent>
     </IonPage>
+    
   );
 };
 
