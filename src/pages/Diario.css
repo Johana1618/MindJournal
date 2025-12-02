@@ -478,7 +478,7 @@ ion-modal.custom-modal ion-footer ion-button[color="primary"] {
 
 .status-text {
   color: #00542c;            /* verde oscuro */
-  font-size: 0,90 rem;
+  font-size: 0, rem;
 }
 
 
@@ -520,6 +520,8 @@ ion-modal.custom-modal ion-footer ion-button[color="primary"] {
   font-size: 28px;
   color: #ff5c5c;
 }
+
+
 
 /* ===== Ocultar scroll pero mantenerlo funcional ===== */
 

@@ -1,14 +1,16 @@
 /* =========================
-   Estadísticas - CSS completo
+   Estadísticas - CSS limpio y funcional
    ========================= */
 
-/* Fondo general, mismo tono que Diario */
+/* Fondo general */
 .estadisticas-page {
   --ion-background-color: #f9ecff;
   background-color: #f9ecff;
 }
 
-/* Toolbar / encabezado superior */
+/* =========================
+   HEADER
+   ========================= */
 .app-toolbar {
   --background: #ffffff;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
@@ -31,121 +33,37 @@
   color: #666;
 }
 
-/* =========================
-   LAYOUT: sidebar fijo + contenido
-   ========================= */
-
-/* Contenedor general: mantiene max-width centrado, pero dejamos espacio para sidebar fijo mediante padding-left */
-.stats-layout {
-  max-width: 1200px;
-  margin: 1.5rem auto 2.5rem;
-  padding: 0 1rem;
-  box-sizing: border-box;
-
-  /* espacio a la izquierda para el sidebar fijo (ancho del sidebar + separación) */
-  padding-left: calc(250px + 1rem);
-
-  /* usamos display:block porque el sidebar es fijo; el flujo del documento será solo el contenido */
-  display: block;
-  gap: 0;
-}
-
-/* Sidebar: fijo y de altura completa (debajo del header) */
-.side-card {
-  position: fixed;
-  left: 0;
-  top: 56px;                 /* altura del toolbar; ajusta si tu header mide distinto */
-  bottom: 0;
-  width: 250px;
-  margin: 0;
-  z-index: 20;
-  background: #ffffff;
-  border-radius: 0 20px 20px 0; /* aspecto tipo mockup */
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-  padding: 1.5rem 1.4rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-}
-
-/* Navegación lateral */
-.side-nav {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-  margin-top: 0.75rem;
-}
-
-.side-nav-item {
-  width: 100%;
-  border: none;
-  background: transparent;
+/* ===== ICONO WIFI OFF ===== */
+.status-badge {
   display: flex;
   align-items: center;
-  gap: 0.6rem;
-  padding: 0.55rem 0.6rem;
-  border-radius: 999px;
-  font-size: 0.85rem;
-  color: #555;
-  cursor: pointer;
-  transition: background 0.15s ease, color 0.15s ease, transform 0.1s ease;
-  text-align: left;
+  gap: 8px;
+  padding: 6px 14px;
+  background: #8cec57;
+  border-radius: 40px;
+  font-weight: 700;
+  width: fit-content;
+  transform: scale(0.9);
 }
 
-/* Icon styling inside buttons */
-.side-nav-item ion-icon {
-  font-size: 1.25rem;
-  min-width: 22px;
-  opacity: 0.95;
-}
-
-/* Hover + active */
-.side-nav-item:hover {
-  background: #f2e6ff;
-  transform: translateY(-1px);
-}
-
-.side-nav-item.active {
-  background: #7b2cff;
-  color: #ffffff;
-}
-
-/* Estado Online pill */
-.side-status {
-  margin-top: auto;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  padding: 0.35rem 0.6rem;
-  border-radius: 999px;
-  background: #e8ffe8;
-  color: #279327;
-  font-size: 0.75rem;
-}
-
-.status-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: #29b529;
+.status-text {
+  color: #00542c;
+  font-size: 0.90rem;
 }
 
 /* =========================
    CONTENIDO PRINCIPAL
    ========================= */
 
-/* Contenedor principal: centrado dentro del area (dejada por padding-left) */
 .stats-main {
   width: 100%;
   max-width: 920px;
   margin: 0 auto;
-  padding-top: 0.5rem;
+  padding: 1rem;
   box-sizing: border-box;
 }
 
-/* Tarjetas generales */
+/* Tarjetas */
 .stats-card {
   background: #ffffff;
   border-radius: 24px;
@@ -172,15 +90,6 @@
 /* =========================
    ULTIMOS 7 DÍAS
    ========================= */
-.stats-week {
-  margin-bottom: 1.8rem;
-}
-
-.big-week {
-  border-radius: 22px;
-  padding: 1.8rem;
-  text-align: center;
-}
 
 .week-row {
   display: flex;
@@ -192,7 +101,6 @@
 }
 
 .week-day {
-  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -215,46 +123,16 @@
   opacity: 0.6;
 }
 
-.week-mood-badge.mood-feliz {
-  background: #fff9e0;
-}
-
-.week-mood-badge.mood-triste {
-  background: #e5f1ff;
-}
-
-.week-mood-badge.mood-ansioso {
-  background: #ffecef;
-}
-
-.week-mood-badge.mood-tranquilo {
-  background: #e5fff5;
-}
-
-.week-mood-badge.mood-motivado {
-  background: #fff1e3;
-}
-
 .week-day-label {
   font-size: 0.8rem;
   color: #666;
 }
 
 /* =========================
-   GRID INFERIOR (DÍAS FELICES + DISTRIBUCIÓN)
+   DÍAS FELICES
    ========================= */
 
-.stats-grid-row,
-.stats-bottom-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.4rem;
-}
-
-/* Tarjeta días felices (izquierda) */
-.stats-happy,
-.big-happy,
-.card-happy {
+.stats-happy {
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -266,7 +144,6 @@
 
 .happy-emoji {
   font-size: 3rem;
-  line-height: 1;
 }
 
 .happy-info {
@@ -277,25 +154,17 @@
 .happy-number {
   font-size: 2.4rem;
   font-weight: 800;
-  line-height: 1;
 }
 
 .happy-label {
   font-size: 0.95rem;
-  text-transform: uppercase;
   opacity: 0.95;
 }
 
-/* Tarjeta distribución (derecha) */
-.stats-distribution,
-.big-distribution,
-.card-dist {
-  padding: 1.6rem;
-  border-radius: 20px;
-  background: #ffffff;
-}
+/* =========================
+   DISTRIBUCIÓN
+   ========================= */
 
-/* Lista de distribuciones */
 .dist-list {
   margin-top: 0.5rem;
   display: flex;
@@ -338,7 +207,6 @@
   width: 0%;
   border-radius: inherit;
   background: #ff9f43;
-  transform-origin: left;
   transition: width 400ms ease;
 }
 
@@ -349,134 +217,26 @@
 }
 
 /* =========================
-   UTIL / PEQUEÑOS AJUSTES
-   ========================= */
-
-.stats-card + .stats-card {
-  margin-top: 0.8rem;
-}
-
-/* =========================
    RESPONSIVE
    ========================= */
 
-/* Hasta 900px: una columna, sidebar ya no fijo y todo en flujo vertical */
-@media (max-width: 900px) {
+@media (max-width: 700px) {
+  /* ELIMINAR SIDEBAR EN MÓVIL */
   .side-card {
-    position: static;
-    width: 100%;
-    top: auto;
-    bottom: auto;
-    border-radius: 12px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
-    padding: 1rem;
-  }
-
-  .stats-layout {
-    padding-left: 1rem; /* quitar espacio que dejábamos para sidebar fijo */
-    max-width: 100%;
-    margin: 1rem 0 2rem;
+    display: none;
   }
 
   .stats-main {
-    max-width: 100%;
-    margin: 0;
-    padding-top: 0.6rem;
-  }
-
-  .stats-grid-row,
-  .stats-bottom-row {
-    grid-template-columns: 1fr; /* una columna en móvil/tablet */
-    gap: 1rem;
-  }
-
-  .week-row {
-    gap: 0.5rem;
-    max-width: 100%;
+    padding: 0.5rem;
   }
 
   .week-mood-badge {
     width: 40px;
     height: 40px;
     font-size: 1.2rem;
-    border-radius: 10px;
   }
 
   .happy-number {
     font-size: 1.7rem;
-  }
-}
-
-/* Hasta 600px: ajustes finos tipo móvil */
-@media (max-width: 600px) {
-  .app-brand {
-    padding: 0.6rem 1rem;
-  }
-
-  .app-logo {
-    font-size: 1.4rem;
-  }
-
-  .app-subtitle {
-    font-size: 0.75rem;
-  }
-
-  .stats-card {
-    padding: 1rem 1rem;
-    border-radius: 18px;
-    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.06);
-  }
-
-  .stats-card-title {
-    font-size: 0.95rem;
-    margin-bottom: 0.8rem;
-  }
-
-  .week-day-label {
-    font-size: 0.72rem;
-  }
-
-  .happy-emoji {
-    font-size: 2.1rem;
-  }
-
-  .happy-label {
-    font-size: 0.85rem;
-  }
-
-  .dist-label {
-    font-size: 0.85rem;
-  }
-
-  .dist-percentage {
-    font-size: 0.75rem;
-  }
-}
-
-/* ===== ICONO WIFI OFF ===== */
-/* Badge verde con icono + texto */
-.status-badge {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 6px 14px;
-  background: #8cec57;      /* verde claro */
-  border-radius: 40px;       /* forma ovalada */
-  font-weight: 700;
-  width: fit-content;
-  padding: 4px 10px;
-}
-
-.status-text {
-  color: #00542c;            /* verde oscuro */
-  font-size: 0,90 rem;
-}
-
-
-
-
-@media (max-width: 700px) {
-  .side-card {
-    display: none; /* SE OCULTA EL SIDEBAR */
   }
 }
