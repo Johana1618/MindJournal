@@ -12,12 +12,14 @@ ion-modal.custom-modal {
   --backdrop-background: rgba(0, 0, 0, 0.4);
   --max-height: 90vh;
 }
+
 @font-face {
     font-family: "Gliker";
     src: url("../assets/fonts/Gliker-Regular.ttf") format("truetype");
     font-weight: normal;
     font-style: normal;
 }
+
 body {
     font-family: "Gliker", sans-serif;
 }
@@ -29,7 +31,7 @@ ion-modal.custom-modal::part(backdrop) {
 
 /* Cuerpo del modal */
 ion-modal.custom-modal::part(content) {
-  background: #fff;
+  background: #5e17eb;
   border-radius: 16px;
   display: flex;
   flex-direction: column;
@@ -56,17 +58,17 @@ ion-modal.custom-modal ion-footer {
 }
 
 /* Scroll interno */
-ion-modal.custom-modal ion-content::part(scroll) {
+/* ion-modal.custom-modal ion-content::part(scroll) {
   padding: 16px;
   overflow-y: auto;
-}
+} */
 
 /* ===== Ajuste responsive (solo en pantallas pequeñas) ===== */
 @media (max-width: 768px) {
   ion-modal.custom-modal {
     --width: 95%;
     --max-width: 95%;
-    --max-height: 80vh; /* 80% de la altura en móviles */
+    --max-height: 80vh;
   }
 
   ion-modal.custom-modal::part(content) {
@@ -106,16 +108,30 @@ ion-modal.custom-modal ion-footer ion-button[color="primary"]:hover {
 /* ===== Fondo general de la página ===== */
 
 .diario-page {
-  --background: #f6e9ff;
-  background: #f6e9ff;
+--background: #f9ecff;
 }
 
-/* Contenedor centrado del contenido (para que no se vea la mitad negra) */
+/* Contenedor centrado del contenido */
 .diario-inner {
   width: 100%;
-  max-width: 900px;
-  margin: 0 auto;
+  max-width: 100%;
+  margin: 0;
+  height: 100%;
 }
+
+/* Ajuste para el contenido cuando sidebar está visible */
+@media (min-width: 768px) {
+  .diario-inner {
+    padding-left: 250px;
+  }
+}
+
+/* Grid del contenido principal */
+.diario-inner > ion-grid {
+  padding: 0;
+  max-width: 100%;
+}
+
 
 /* Header y logo */
 
@@ -123,12 +139,13 @@ ion-modal.custom-modal ion-footer ion-button[color="primary"]:hover {
   --background: #ffffff;
   --color: #333;
 }
+
 .diario-logo {
-  font-family: "Gliker",
-    sans-serif;
+  font-family: "Gliker", sans-serif;
   font-weight: 700;
   color: #7a2bd6;
 }
+
 .diario-logo-title {
   font-family: "Gliker", sans-serif;
   font-weight: 800;
@@ -142,7 +159,6 @@ ion-modal.custom-modal ion-footer ion-button[color="primary"]:hover {
   color: #777;
   margin-top: 2px;
 }
-/* Texto bajo el título */
 
 .diario-empty {
   display: block;
@@ -151,9 +167,17 @@ ion-modal.custom-modal ion-footer ion-button[color="primary"]:hover {
 
 /* Tarjeta "Estado de hoy" */
 
+.estado-hoy-card {
+  border-radius: 20px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(10px);
+  margin-bottom: 24px;
+}
+
 .estado-hoy-card .Titulos {
-  border-radius: 16px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+  border-radius: 20px 20px 0 0;
+  padding: 20px;
 }
 
 .estado-hoy-card .Titulos .header-content {
@@ -163,8 +187,14 @@ ion-modal.custom-modal ion-footer ion-button[color="primary"]:hover {
   width: 100%;
 }
 
+.estado-hoy-card .Titulos ion-card-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #333;
+}
+
 .calendar-icon {
-  font-size: 1.5rem;
+  font-size: 1.8rem;
 }
 
 .mood-row {
@@ -179,31 +209,26 @@ ion-modal.custom-modal ion-footer ion-button[color="primary"]:hover {
   --color: #333;
 }
 
-.mood-emoji {
-  margin-right: 4px;
-}
+
+
 .mood-scroll-container {
   display: flex;
-  gap: 16px;
-  overflow-x: auto;
   overflow-y: hidden;
-  padding: 16px 4px;
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
-  
-  /* Hacer visible el scrollbar en todos los navegadores */
-  scrollbar-width: thin; /* Firefox */
-  scrollbar-color: #dbd1d1 #f3f4f6; /* Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: #dbd1d1 #f3f4f6;
+  justify-content: center;
 }
 
 /* Webkit browsers (Chrome, Safari, Edge) */
 .mood-scroll-container::-webkit-scrollbar {
   height: 8px;
-  display: block; /* Forzar visualización */
+  display: block;
 }
 
 .mood-scroll-container::-webkit-scrollbar-track {
-  background: #ff0000;
+  background: #f3f4f6;
   border-radius: 4px;
   margin: 0 8px;
 }
@@ -218,7 +243,7 @@ ion-modal.custom-modal ion-footer ion-button[color="primary"]:hover {
 }
 
 /* Ajuste del card para que el scrollbar se vea */
-.estado-hoy-card .ion-card-content {
+.estado-hoy-card ion-card-content {
   padding: 0 !important;
   overflow: visible;
 }
@@ -228,13 +253,21 @@ ion-modal.custom-modal ion-footer ion-button[color="primary"]:hover {
   flex-direction: column;
   align-items: center;
   gap: 8px;
-  min-width: 70px;
-  flex-shrink: 0;
+  min-width: 70px;      /* antes 90px → causaba desbordes */
+  flex-shrink: 1;       /* permite reducirse */
+}
+
+.mood-label-text {
+  font-size: 13px;
+  text-align: center;
+  white-space: normal !important; /* permite varias líneas */
+  line-height: 1.2;
+  max-width: 70px; /* evita corte */
 }
 
 .mood-circle {
-  width: 56px;
-  height: 56px;
+  width: 70px;
+  height: 70px;
   border-radius: 50%;
   background: #f3f4f6;
   display: flex;
@@ -256,12 +289,12 @@ ion-modal.custom-modal ion-footer ion-button[color="primary"]:hover {
 }
 
 .mood-emoji-large {
-  font-size: 32px;
+  font-size: 40px;
   line-height: 1;
 }
 
 .mood-label-text {
-  font-size: 12px;
+  font-size: 14px;
   color: #6b7280;
   font-weight: 500;
   text-align: center;
@@ -272,45 +305,64 @@ ion-modal.custom-modal ion-footer ion-button[color="primary"]:hover {
   color: var(--ion-color-primary);
   font-weight: 600;
 }
+
 /* Sección "Mis entradas" */
 
 .section-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 16px 4px 8px;
+  margin: 24px 4px 12px;
 }
 
 .section-header h2 {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   margin: 0;
+  font-weight: 700;
+  color: #333;
 }
+
 .section-header a {
-  font-size: 1rem;
+  font-size: 0.9rem;
   color: #7a2bd6;
   text-decoration: none;
+  font-weight: 600;
+}
+
+.section-header a:hover {
+  text-decoration: underline;
 }
 
 .entrada-col {
-  margin-bottom: 2px;
+  margin-bottom: 16px;
 }
 
 .entrada-card {
-  border-radius: 16px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  height: 100%;
+}
+
+.entrada-card ion-card-content {
+  padding: 20px;
 }
 
 .entrada-header {
   display: flex;
   align-items: center;
-  margin-bottom: 4px;
-  font-size: 0.85rem;
+  gap: 12px;
+  margin-bottom: 16px;
+  font-size: 0.9rem;
   font-weight: 600;
 }
 
 .entrada-text {
-  margin: 4px 0 6px;
-  font-size: 0.9rem;
+  margin: 0;
+  font-size: 1rem;
+  color: #333;
+  line-height: 1.6;
 }
 
 .entrada-tags {
@@ -318,42 +370,50 @@ ion-modal.custom-modal ion-footer ion-button[color="primary"]:hover {
   margin-bottom: 6px;
 }
 
-.entrada-actions {
-  display: flex;
-  justify-content: flex-end;
-  margin-left: 50px;
-  
+.entrada-date {
+  margin-left: 20px;
+  font-size: 0.8rem;
+  color: #666;
+  font-weight: 500;
 }
 
-.entrada-date{
-  margin-left: 30px;
-}
 .entrada-mood {
-  font-size: 2rem;
-  margin-right: 6px;
+  font-size: 2.2rem;
+  line-height: 1;
 } 
+
 .entrada-label {
-  font-size: 0.9rem;
+  font-size: 1.05rem;
   color: #000000;
-  /* margin-left: px; */
+  font-weight: 700;
 }
+
 /* ===== Sidebar tipo mockup (solo escritorio) ===== */
 
+/* ocultar sidebar en móviles */
 .sidebar-col {
-  display: none;
+  display: none !important;
 }
+
 
 @media (min-width: 768px) {
   .sidebar-col {
     display: block;
+    position: fixed;
+    left: 0;
+    top: 56px;
+    bottom: 0;
+    width: 250px;
+    z-index: 10;
   }
 }
 
 .sidebar {
-  background: #ffffff;
-  border-radius: 0 16px 16px 0;
-  padding: 16px 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 0 20px 20px 0;
+  padding: 20px 16px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -368,29 +428,29 @@ ion-modal.custom-modal ion-footer ion-button[color="primary"]:hover {
 .sidebar-item {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 8px 10px;
-  border-radius: 12px;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 14px;
   cursor: pointer;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   color: #555;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
   transition: background 0.15s ease, color 0.15s ease, transform 0.1s ease;
 }
 
 .sidebar-item:hover {
-  background: #f4e8ff;
-  transform: translateX(1px);
+  background: rgba(122, 43, 214, 0.08);
+  transform: translateX(2px);
 }
 
 .sidebar-item.active {
-  background: #f3e4ff;
+  background: rgba(122, 43, 214, 0.12);
   color: #7a2bd6;
   font-weight: 600;
 }
 
 .sidebar-icon {
-  font-size: 1.4rem;
+  font-size: 1.5rem;
 }
 
 /* Estado "online" al final del sidebar */
@@ -407,9 +467,10 @@ ion-modal.custom-modal ion-footer ion-button[color="primary"]:hover {
   background: #e4ffe3;
   color: #1e7c1d;
   font-weight: 600;
+  bottom: 80px;
 }
 
-/* Estilos del modal de crear .entrada-actions===== Estilos modal tipo mockup ===== */
+/* ===== Estilos modal tipo mockup ===== */
 
 .entry-modal-title {
   font-weight: 700;
@@ -468,37 +529,21 @@ ion-modal.custom-modal ion-footer ion-button[color="primary"]:hover {
 .entry-modal-footer ion-button {
   margin-right: 8px;
 }
-/* Centrar botones del modal "¿Cómo estás hoy ?" */
+
+/* Centrar botones del modal */
 .entry-modal-footer ion-buttons {
   display: flex;
-  justify-content: flex-end;   /* si los quieres a la izquierda: flex-start */
+  justify-content: flex-end;
   width: 100%;
 }
 
 .entry-modal-footer ion-button {
   margin: 0 6px;
 }
-/* Pill "Online" en el header (versión móvil/escritorio) */
-.header-status {
-  margin-right: 8px;
-}
 
-.header-status-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding: 3px 10px;
-  border-radius: 999px;
-  font-size: 0.7rem;
-  font-weight: 600;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
-}
 
-/* ESTADO OFFLINE */
-.header-status-pill.offline {
-  background: #7ed957;          /* rojo suave */
-  color: #00542c;               /* rojo oscuro */
-}
+
+
 
 /* Icono WiFi OFF */
 .header-status-wifi-off {
@@ -517,7 +562,7 @@ ion-modal.custom-modal ion-footer ion-button[color="primary"]:hover {
   width: 12px;
   height: 12px;
   border: 2px solid transparent;
-  border-top-color: #00542c;     /* rojo */
+  border-top-color: #00542c;
   border-radius: 50%;
 } 
 
@@ -529,12 +574,10 @@ ion-modal.custom-modal ion-footer ion-button[color="primary"]:hover {
   left: 2px;
   width: 10px;
   height: 2px;
-  background: #000000;          /* rojo */
+  background: #000000;
   transform: rotate(-45deg);
   border-radius: 2px;
 }
-
-
 
 /* Ocultar el indicador Online del header SOLO en pantallas grandes */
 @media (min-width: 768px) {
@@ -542,6 +585,7 @@ ion-modal.custom-modal ion-footer ion-button[color="primary"]:hover {
     display: none !important;
   }
 }
+
 /* Ocultar tab bar en pantallas medianas y grandes (tablet/desktop) */
 @media (min-width: 768px) {
   ion-tab-bar {
@@ -555,4 +599,68 @@ ion-modal.custom-modal ion-footer ion-button[color="primary"]:hover {
     display: flex !important;
   }
 }
+@media (min-width: 768px) {
+  .sidebar-col {
+    display: block !important;
+    position: fixed;
+    left: 0;
+    top: 56px;
+    bottom: 0;
+    width: 250px;
+    z-index: 10;
+  }
+}
+/* ===== BOTONES EDITAR / BORRAR (CORREGIDOS) ===== */
 
+.entrada-actions {
+  position: absolute;
+  top: 22px;
+  right: 14px;
+  display: flex;
+  gap: 12px;
+  z-index: 20;
+}
+
+.entrada-action-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: transparent;
+  box-shadow: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: 0.15s ease;
+}
+
+.entrada-action-btn:hover {
+  transform: scale(1.15);
+}
+
+.entrada-action-btn-edit ion-icon {
+  font-size: 30px;
+  color: #38b6ff;
+}
+
+.entrada-action-btn-remove ion-icon {
+  font-size: 28px;
+  color: #ff5c5c;
+}
+
+/* ===== Ocultar scroll pero mantenerlo funcional ===== */
+
+/* iOS / Safari / Chrome */
+::-webkit-scrollbar {
+  display: none !important;
+}
+
+/* Firefox */
+* {
+  scrollbar-width: none !important;
+}
+
+/* Contenedores principales */
+html, body, ion-content, .diario-inner {
+  -ms-overflow-style: none !important; /* IE / Edge */
+}

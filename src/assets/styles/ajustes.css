@@ -1,125 +1,119 @@
-/* ======== CONTENEDOR GENERAL ======== */
-.content {
-  --background: #f7eaff;
-  padding: 20px;
-}
-@font-face {
-    font-family: "Gliker";
-    src: url("../assets/fonts/Gliker-Regular.ttf") format("truetype");
-    font-weight: normal;
-    font-style: normal;
-}
-body {
-    font-family: "Gliker", sans-serif;
-}
-
-/* Título principal */
-.ajustes-title {
-  font-size: 32px;
-  font-weight: 800;
-  color: #7a2ff2;
-  margin: 0 0 4px 0;
-}
-.titulo-container .titulo{
- margin: 0;
-  font-size: 1.4rem;
-  font-weight: 800;
-  color: #7b2bff;
-
-}
-
-.ajustes-top-row {
+/* ============================
+   LAYOUT GENERAL
+============================ */
+.ajustes-wrapper {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 22px;
+  width: 100%;
+  height: 100%;
 }
 
-/* Chip Estado */
-.status-chip {
-  height: 28px;
-  font-size: 14px;
-  font-weight: 600;
-}
-
-/* ======== MENÚ LATERAL IZQUIERDO ======== */
+/* ============================
+   SIDEBAR
+============================ */
 .left-menu-container {
-  width: 260px;
-  background: white;
-  border-radius: 18px;
-  padding: 24px;
-  margin-right: 25px;
-  height: fit-content;
-  box-shadow: 0px 4px 15px rgb(0 0 0 / 8%);
+  width: 240px;
+  height: 100vh;
+  padding: 30px 0;
+  border-right: 2px solid #ececec;
+  flex-shrink: 0;
 }
 
 .left-menu-container ul {
-  list-style: none;
+  margin: 0;
   padding: 0;
-  margin-top: 10px;
+  list-style: none;
 }
 
 .left-menu-container li {
+  padding: 18px 25px;
+  font-size: 16px;
+  color: #757575;
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 12px 14px;
-  border-radius: 10px;
-  font-weight: 500;
+  gap: 14px;
   cursor: pointer;
-  margin-bottom: 6px;
+  transition: 0.2s;
 }
 
-.left-menu-container li.active {
-  background: #8b2df5;
-  color: white;
+.left-menu-container li:hover {
+  background: #f5f5f5;
 }
 
-/* ======== TARJETA DE USUARIO ======== */
+.left-menu-container .active {
+  color: #7b3ff3;
+  font-weight: 700;
+}
 
+/* ============================
+   CONTENIDO
+============================ */
+.ajustes-content {
+  flex: 1;
+  padding: 30px 50px;
+}
+
+/* ============================
+   TARJETA USUARIO
+============================ */
 .user-card {
+  background: white;
   border-radius: 22px;
-  box-shadow: 0px 4px 12px rgb(0 0 0 / 10%);
+  padding: 10px 0;
+  box-shadow: 0px 4px 12px rgba(0,0,0,0.08);
+  width: 100%;
   margin-bottom: 25px;
 }
 
 .user-card-content {
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: 22px;
 }
 
 .user-avatar {
-  width: 65px;
-  height: 65px;
+  width: 70px;
+  height: 70px;
+  background: linear-gradient(135deg,#7b3ff3,#56d7ff);
   border-radius: 50%;
-  background: #a05bff;
-  color: white;
   font-size: 30px;
-  font-weight: 700;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  color: white;
+  font-weight: bold;
 }
 
-.user-info .user-name {
-  font-size: 30px;
-  color: #6b3ec6;
+.user-name {
+  font-size: 32px;
+  color: #7b3ff3;
+  font-weight: 800;
 }
 
-/* ======== TITULOS DE SECCIÓN ======== */
+/* ============================
+   GRID DE AJUSTES (dos columnas)
+============================ */
+.settings-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+}
+
+/* TITULOS */
 .section-title {
   font-size: 18px;
   font-weight: 700;
-  margin: 20px 0 12px 0;
-  color: #6b3ec6;
+  margin-bottom: 12px;
 }
 
-/* ======== TARJETAS DE CONFIGURACIÓN ======== */
+/* ============================
+   TARJETAS
+============================ */
 .setting-card {
+  background: white;
   border-radius: 18px;
-  box-shadow: 0px 4px 12px rgb(0 0 0 / 10%);
-  margin-bottom: 18px;
+  padding: 16px 20px;
+  box-shadow: 0px 4px 10px rgba(0,0,0,0.08);
+  margin-bottom: 16px;
 }
 
 .setting-grid {
@@ -128,67 +122,65 @@ body {
   align-items: center;
 }
 
-.setting-left {
-  display: flex;
-  flex-direction: column;
-}
-
 .icon-row {
-  flex-direction: row;
+  display: flex;
   align-items: center;
   gap: 10px;
 }
 
-.setting-texts p {
-  margin: 0;
-}
-
 .setting-title {
-  font-weight: 700;
   font-size: 16px;
+  font-weight: 700;
 }
 
 .setting-sub {
-  font-size: 14px;
-  color: #6d6d6d;
+  font-size: 13px;
+  color: #707070;
 }
 
 .setting-sub-value {
-  font-size: 16px;
-  font-weight: 600;
-  color: #7a2ff2;
+  font-size: 15px;
+  color: #7b3ff3;
+  font-weight: 700;
 }
 
-.arrow-icon {
-  color: #7a2ff2;
-  font-size: 22px;
+.setting-icon {
+  font-size: 30px;
+}
+
+.purple {
+  color: #7b3ff3;
 }
 
 .red {
-  color: #d62839;
+  color: #ff4c4c;
 }
 
-.danger {
-  background: #ffe5e5;
+.setting-card.danger {
+  background: #fff4f4;
+  border: 2px solid #ff4c4c;
 }
 
-/* ======== RESPONSIVE MÓVIL ======== */
+/* Flecha */
+.arrow-icon {
+  font-size: 24px;
+  color: #7b3ff3;
+}
+
+/* ============================
+   RESPONSIVE — MÓVIL
+============================ */
 @media (max-width: 900px) {
   .left-menu-container {
-    display: none;
+    display: none; /* SE OCULTA EL SIDEBAR */
   }
 
-  .ajustes-top-row {
-    margin-top: 10px;
+  .ajustes-content {
+    padding: 20px;
   }
 
-  .user-card {
-    margin-top: 15px;
-  }
-
-  .setting-grid {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
+  .settings-row {
+    grid-template-columns: 1fr; /* UNA COLUMNA EN MOVIL */
+    gap: 20px;
   }
 }

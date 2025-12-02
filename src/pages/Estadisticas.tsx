@@ -14,6 +14,7 @@ import {
   barChartOutline,
   searchOutline,
   settingsOutline,
+  wifiOutline,
 } from "ionicons/icons";
 
 import * as Diary from "../services/diary";
@@ -22,7 +23,7 @@ import { Entry, Mood } from "../services/diary";
 import "./Estadisticas.css";
 
 // Letras de los días de la semana (Lunes a Domingo)
-const WEEKDAY_LABELS = ["L", "M", "X", "J", "V", "S", "D"];
+const WEEKDAY_LABELS = ["D", "L", "M", "M", "J", "V", "S"];
 
 const moodEmoji: Record<Mood, string> = {
   feliz: "😊",
@@ -40,9 +41,13 @@ const moodLabel: Record<Mood, string> = {
   motivado: "Motivado",
 };
 
-function toISODate(d: Date): string {
-  return d.toISOString().slice(0, 10); // yyyy-mm-dd
+function toISODate(d: Date) {
+  const year = d.getFullYear();
+  const month = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
 }
+
 
 function weekdayIndex(date: Date): number {
   // Convierte domingo=0 a domingo=6, y lunes=1 a lunes=0
@@ -197,16 +202,21 @@ const Estadisticas: React.FC = () => {
               </button>
             </nav>
 
-            <div className="side-status">
-              <span className="status-dot" />
-              <span>Online</span>
+            <div className="sidebar-status">
+              <span className="status-icon-with-slash">
+                <IonIcon icon={wifiOutline} />
+                <span className="icon-slash" />
+              </span>
+              <span>Offline</span>
             </div>
           </aside>
 
           {/* CONTENIDO PRINCIPAL (ya SIN el título duplicado) */}
 
           <main className="stats-main">
-            <div className="stats-card stats-distribution">
+
+            {/* DISTRIBUCIÓN DE EMOCIONES */}
+            <div className="stats-card stats-distribution big-distribution">
               <div className="stats-card-title">Distribución de emociones</div>
 
               <div className="dist-list">
@@ -216,26 +226,29 @@ const Estadisticas: React.FC = () => {
                     stats.total > 0
                       ? Math.round((value * 100) / stats.total)
                       : 0;
+
                   return (
                     <div className="dist-row" key={mood}>
                       <div className="dist-label">
                         <span className="dist-emoji">{moodEmoji[mood]}</span>
                         <span>{moodLabel[mood]}</span>
                       </div>
+
                       <div className="dist-bar-wrapper">
                         <div
                           className="dist-bar-fill"
                           style={{ width: `${pct}%` }}
                         />
                       </div>
+
                       <div className="dist-percentage">{pct}%</div>
                     </div>
                   );
                 })}
               </div>
             </div>
-            {/* Tarjeta últimos 7 días */}
-            <section className="stats-card stats-week">
+            {/* TARJETA: ULTIMOS 7 DÍAS */}
+            <section className="stats-card stats-week big-week">
               <div className="stats-card-title">Últimos 7 días</div>
               <div className="week-row">
                 {last7Days.map((d) => (
@@ -254,19 +267,23 @@ const Estadisticas: React.FC = () => {
               </div>
             </section>
 
-            {/* Fila inferior: días felices + distribución */}
-            <section className="stats-bottom-row">
-              <div className="stats-card stats-happy">
-                <div className="happy-emoji">😊</div>
+            {/* GRID: DÍAS FELICES + DISTRIBUCIÓN */}
+            <section className="stats-grid-row">
+
+              {/* DÍAS FELICES */}
+              <div className="stats-card stats-happy big-happy">
+                <div className="happy-emoji">😁</div>
                 <div className="happy-info">
                   <div className="happy-number">{stats.happyDays}</div>
-                  <div className="happy-label">DÍAS FELICES</div>
+                  <div className="happy-label">Días felices</div>
                 </div>
               </div>
 
 
+
             </section>
           </main>
+
         </div>
       </IonContent>
     </IonPage>

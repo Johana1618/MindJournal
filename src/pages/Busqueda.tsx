@@ -13,6 +13,8 @@ import { useEffect, useMemo, useState } from "react";
 import * as Diary from "../services/diary";
 import { Entry } from "../services/diary";
 import "./Busqueda.css";
+import { wifiOutline } from "ionicons/icons";
+
 
 const Busqueda: React.FC = () => {
   const [query, setQuery] = useState("");
@@ -50,7 +52,7 @@ const Busqueda: React.FC = () => {
         <IonToolbar>
           <div className="search-header">
             <h1 className="search-header-title">Búsqueda</h1>
-           
+
           </div>
         </IonToolbar>
       </IonHeader>
@@ -82,11 +84,16 @@ const Busqueda: React.FC = () => {
                   <span>Ajustes</span>
                 </a>
               </nav>
-
+      
               <div className="sidebar-status">
-                <span className="status-dot" />
-                <span>Online</span>
+                <span className="status-icon-with-slash">
+                  <IonIcon icon={wifiOutline} />
+                  <span className="icon-slash" />
+                </span>
+                <span>Offline</span>
               </div>
+
+
             </div>
           </aside>
 

@@ -29,6 +29,7 @@ import {
   IonNote,
   IonChip,
   IonDatetime,
+  
 } from "@ionic/react";
 import { useEffect, useState, useRef } from "react";
 import {
@@ -38,6 +39,7 @@ import {
   homeOutline,
   barChartOutline,
   searchOutline,
+  wifiOutline,
   settingsOutline,
 } from "ionicons/icons";
 import { useHistory, useLocation } from "react-router-dom";
@@ -52,16 +54,18 @@ const MOOD_LABEL: Record<Mood, string> = {
   triste: "Triste",
   ansioso: "Ansioso",
   tranquilo: "Tranquilo",
-  motivado: "Motivado",
+  motivado: "Enamorado",
 };
 
 const MOOD_EMOJI: Record<Mood, string> = {
-  feliz: "😊",
-  triste: "😔",
-  ansioso: "😰",
+  feliz: "😀",
+  triste: "😰",
+  ansioso: "😨",
   tranquilo: "😌",
-  motivado: "🚀",
+  motivado: "😍",
 };
+
+
 
 const Diario: React.FC = () => {
   const [items, setItems] = useState<Entry[]>([]);
@@ -101,7 +105,7 @@ const Diario: React.FC = () => {
 
   function openCreate() {
     resetForm();
-    setEntryDate(new Date().toISOString()); // hoy
+    setEntryDate(new Date().toISOString());
     setShowCreate(true);
   }
 
@@ -167,7 +171,6 @@ const Diario: React.FC = () => {
 
   return (
     <IonPage ref={pageRef as any}>
-      {/* HEADER */}
       <IonHeader>
         <IonToolbar className="diario-toolbar">
           <IonTitle className="diario-logo">
@@ -176,22 +179,19 @@ const Diario: React.FC = () => {
           </IonTitle>
 
           <IonButtons slot="end" className="header-status">
-            <span className="header-status-pill offline">
-              <span className="header-status-wifi-off" />
-              Offline
-            </span>
-          </IonButtons>
-
+                      <span className="header-status-pill offline">
+                        <span className="header-status-wifi-off" />
+                        Offline
+                      </span>
+                    </IonButtons>
         </IonToolbar>
       </IonHeader>
 
-      {/* CONTENIDO PRINCIPAL */}
       <IonContent className="diario-page ion-padding">
         <div className="diario-inner">
           <IonGrid>
             <IonRow>
-              {/* SIDEBAR: SOLO ESCRITORIO */}
-              <IonCol size="0" sizeMd="3" className="sidebar-col">
+              <IonCol className="sidebar-col">
                 <div className="sidebar">
                   <div>
                     <div className="sidebar-menu">
@@ -247,25 +247,27 @@ const Diario: React.FC = () => {
                         />
                         <span>Ajustes</span>
                       </div>
+                      
                     </div>
-                  </div>
-
-                  <div className="sidebar-status">
-                    <span className="sidebar-status-pill">● Online</span>
-                  </div>
+                    
                 </div>
-              </IonCol>
+                <IonButtons slot="end" className="header-status">
+                            <span className="header-status-pill offline">
+                              <span className="header-status-wifi-off" />
+                              Offline
+                            </span>
+                          </IonButtons>
+                  </div>
 
+                  
+              </IonCol>
 
               <IonCol size="12" sizeMd="9">
                 {items.length === 0 && (
-                  <IonNote className="diario-empty">
-
-                  </IonNote>
+                  <IonNote className="diario-empty"></IonNote>
                 )}
 
                 <IonGrid fixed>
-                  {/* Estado de hoy */}
                   <IonRow>
                     <IonCol size="12">
                       <IonCard className="estado-hoy-card">
@@ -275,11 +277,7 @@ const Diario: React.FC = () => {
                             <IonCardTitle className="calendar-icon">🗓️</IonCardTitle>
                           </div>
 
-                          {!todayEntry && (
-                            <IonCardSubtitle>
-                              Aún no has registrado tu estado de ánimo hoy.
-                            </IonCardSubtitle>
-                          )}
+                          
                         </IonCardHeader>
                         <IonCardContent>
                           <div className="mood-scroll-container">
@@ -302,13 +300,11 @@ const Diario: React.FC = () => {
                     </IonCol>
                   </IonRow>
 
-                  {/* Mis entradas */}
                   {items.length > 0 && (
                     <IonRow>
                       <IonCol size="12">
                         <div className="section-header">
                           <h2>Mis entradas</h2>
-                          {/* Futuro: "Ver todas" */}
                           <h2><a href="">Ver todas</a></h2>
                         </div>
                       </IonCol>
@@ -320,11 +316,24 @@ const Diario: React.FC = () => {
                           key={e.id}
                           className="entrada-col"
                         >
-                          <IonCard
-                            button
-                            onClick={() => openEdit(e)}
-                            className="entrada-card"
-                          >
+                          <IonCard className="entrada-card">
+                            {/* BOTONES EDITAR / BORRAR */}
+                            <div className="entrada-actions">
+                              <div
+                                className="entrada-action-btn-edit"
+                                onClick={() => openEdit(e)}
+                              >
+                                <IonIcon icon={createOutline} />
+                              </div>
+
+                              <div
+                                className="entrada-action-btn-remove"
+                                onClick={() => onRemove(e)}
+                              >
+                                <IonIcon icon={trashOutline} />
+                              </div>
+                            </div>
+
                             <IonCardContent>
                               <div className="entrada-header">
                                 <span className="entrada-mood">
@@ -333,57 +342,20 @@ const Diario: React.FC = () => {
                                 <span className="entrada-label">
                                   {MOOD_LABEL[e.mood]}
                                 </span>
-
                                 <span className="entrada-date">
-                                  {new Date(
-                                    e.dateISO
-                                  ).toLocaleDateString()}
+                                  {new Date(e.dateISO).toLocaleDateString("es-ES", {
+                                    day: "numeric",
+                                    month: "short",
+                                    year: "numeric",
+                                  })}
                                 </span>
-                                <div className="entrada-actions">
-                                  <IonButton
-                                    fill="clear"
-                                    size="big"
-                                    onClick={(ev) => {
-                                      ev.stopPropagation();
-                                      openEdit(e);
-                                    }}
-                                  >
-                                    <IonIcon
-                                      slot="icon-only"
-                                      icon={createOutline}
-                                    />
-                                  </IonButton>
-                                  <IonButton
-                                    fill="clear"
-                                    size="big"
-                                    color="danger"
-                                    onClick={(ev) => {
-                                      ev.stopPropagation();
-                                      onRemove(e);
-                                    }}
-                                  >
-                                    <IonIcon
-                                      slot="icon-only"
-                                      icon={trashOutline}
-                                    />
-                                  </IonButton>
-                                </div>
                               </div>
                               <p className="entrada-text">{e.text}</p>
-                              {e.tags?.length ? (
-                                <IonText
-                                  color="medium"
-                                  className="entrada-tags"
-                                >
-                                  <small>Tags: {e.tags.join(", ")}</small>
-                                </IonText>
-                              ) : null}
-
-
                             </IonCardContent>
                           </IonCard>
                         </IonCol>
                       ))}
+
                     </IonRow>
                   )}
                 </IonGrid>
@@ -392,13 +364,12 @@ const Diario: React.FC = () => {
           </IonGrid>
         </div>
 
-        {/* FAB + */}
         <IonFab vertical="bottom" horizontal="end" slot="fixed">
           <IonFabButton color="primary" onClick={openCreate}>
             <IonIcon icon={addOutline} />
           </IonFabButton>
         </IonFab>
-        {/* MODAL CREAR */}
+
         <IonModal
           isOpen={showCreate}
           onDidDismiss={() => setShowCreate(false)}
@@ -415,7 +386,6 @@ const Diario: React.FC = () => {
           </IonHeader>
 
           <IonContent className="ion-padding entry-modal-content">
-            {/* Pregunta de texto */}
             <IonItem lines="full">
               <IonLabel position="stacked" className="entry-modal-label">
                 Qué quieres escribir hoy?
@@ -429,7 +399,6 @@ const Diario: React.FC = () => {
               />
             </IonItem>
 
-            {/* Estado de ánimo */}
             <IonItemDivider className="entry-modal-divider">
               Estado de ánimo
             </IonItemDivider>
@@ -439,19 +408,19 @@ const Diario: React.FC = () => {
             >
               <IonItem className="entry-mood-item">
                 <IonLabel>
-                  <span className="mood-emoji">😊</span> Feliz
+                  <span className="mood-emoji">😀</span> Feliz
                 </IonLabel>
                 <IonRadio slot="end" value="feliz" />
               </IonItem>
               <IonItem className="entry-mood-item">
                 <IonLabel>
-                  <span className="mood-emoji">😔</span> Triste
+                  <span className="mood-emoji">😰</span> Triste
                 </IonLabel>
                 <IonRadio slot="end" value="triste" />
               </IonItem>
               <IonItem className="entry-mood-item">
                 <IonLabel>
-                  <span className="mood-emoji">😰</span> Ansioso
+                  <span className="mood-emoji">😨</span> Ansioso
                 </IonLabel>
                 <IonRadio slot="end" value="ansioso" />
               </IonItem>
@@ -463,13 +432,12 @@ const Diario: React.FC = () => {
               </IonItem>
               <IonItem className="entry-mood-item">
                 <IonLabel>
-                  <span className="mood-emoji">🚀</span> Motivado
+                  <span className="mood-emoji">😍</span> Enamorado
                 </IonLabel>
                 <IonRadio slot="end" value="motivado" />
               </IonItem>
             </IonRadioGroup>
 
-            {/* Calendario  */}
             <div className="entry-modal-calendar">
               <IonDatetime
                 presentation="date"
@@ -487,7 +455,6 @@ const Diario: React.FC = () => {
                 }}
               />
             </div>
-
           </IonContent>
 
           <IonFooter className="ion-padding entry-modal-footer">
@@ -506,7 +473,6 @@ const Diario: React.FC = () => {
           </IonFooter>
         </IonModal>
 
-        {/* MODAL EDITAR */}
         <IonModal
           isOpen={!!showEdit}
           onDidDismiss={() => setShowEdit(null)}
@@ -541,15 +507,15 @@ const Diario: React.FC = () => {
               onIonChange={(e) => setMood(e.detail.value as Mood)}
             >
               <IonItem>
-                <IonLabel>😊 Feliz</IonLabel>
+                <IonLabel>😀 Feliz</IonLabel>
                 <IonRadio slot="end" value="feliz" />
               </IonItem>
               <IonItem>
-                <IonLabel>😔 Triste</IonLabel>
+                <IonLabel>😰 Triste</IonLabel>
                 <IonRadio slot="end" value="triste" />
               </IonItem>
               <IonItem>
-                <IonLabel>😰 Ansioso</IonLabel>
+                <IonLabel>😨 Ansioso</IonLabel>
                 <IonRadio slot="end" value="ansioso" />
               </IonItem>
               <IonItem>
@@ -557,7 +523,7 @@ const Diario: React.FC = () => {
                 <IonRadio slot="end" value="tranquilo" />
               </IonItem>
               <IonItem>
-                <IonLabel>🚀 Motivado</IonLabel>
+                <IonLabel>😍 Enamorado</IonLabel>
                 <IonRadio slot="end" value="motivado" />
               </IonItem>
             </IonRadioGroup>

@@ -21,9 +21,7 @@ import {
   chevronForwardOutline,
 } from "ionicons/icons";
 
-// import "../assets/styles/general.css";
 import "../assets/styles/ajustes.css";
-
 import { useState } from "react";
 import { useHistory } from "react-router";
 
@@ -59,12 +57,10 @@ const Ajustes: React.FC = () => {
   };
 
   // ============================
-  // CONFIGURAR PIN (placeholder)
+  // CONFIGURAR PIN
   // ============================
   const handleConfigurePin = () => {
-    alert(
-      "Aquí iría la configuración del PIN de seguridad (pendiente por implementar)."
-    );
+    alert("Aquí iría la configuración del PIN (pendiente por implementar).");
   };
 
   // ============================
@@ -84,20 +80,22 @@ const Ajustes: React.FC = () => {
 
   return (
     <IonPage>
-      {/* HEADER con mismo estilo que Estadísticas/Búsqueda */}
+      {/* HEADER */}
       <IonHeader>
         <IonToolbar>
           <div className="titulo-container">
             <IonTitle className="titulo">Ajustes</IonTitle>
-          
           </div>
         </IonToolbar>
       </IonHeader>
 
       {/* CONTENIDO */}
       <IonContent fullscreen className="content">
-        <div style={{ display: "flex" }}>
-          {/* ===== MENÚ IZQUIERDO (solo escritorio) ===== */}
+        <div className="ajustes-wrapper">
+          
+          {/* ===================== */}
+          {/*        SIDEBAR        */}
+          {/* ===================== */}
           <div className="left-menu-container">
             <ul>
               <li onClick={() => history.push("/diario")}>
@@ -116,12 +114,14 @@ const Ajustes: React.FC = () => {
                 <IonIcon icon={settingsOutline} /> Ajustes
               </li>
             </ul>
-            {/* Aquí ya NO mostramos el chip Online */}
           </div>
 
-          {/* ===== CONTENIDO PRINCIPAL ===== */}
-          <div style={{ width: "100%" }}>
-            {/* TARJETA DE USUARIO */}
+          {/* ===================== */}
+          {/*       CONTENIDO       */}
+          {/* ===================== */}
+          <div className="ajustes-content">
+
+            {/* TARJETA USUARIO */}
             <IonCard className="user-card">
               <IonCardContent className="user-card-content">
                 <div className="user-avatar">U</div>
@@ -131,105 +131,120 @@ const Ajustes: React.FC = () => {
               </IonCardContent>
             </IonCard>
 
-            {/* NOTIFICACIONES */}
-            <p className="section-title">Notificaciones</p>
+            {/* ===================== */}
+            {/*     GRID 2 COLUMNAS    */}
+            {/* ===================== */}
+            <div className="settings-row">
+              
+              {/* -------------------------------- */}
+              {/*   COLUMNA IZQUIERDA — NOTIF     */}
+              {/* -------------------------------- */}
+              <div>
+                <p className="section-title">Notificaciones</p>
 
-            {/* Recordatorio diario */}
-            <IonCard className="setting-card">
-              <IonCardContent className="setting-grid">
-                <div className="setting-left icon-row">
-                  <IonIcon
-                    icon={notificationsOutline}
-                    className="setting-icon purple"
-                  />
-                  <div className="setting-texts">
-                    <p className="setting-title">Recordatorio diario</p>
-                    <p className="setting-sub">
-                      Recibe recordatorios para escribir
-                    </p>
-                  </div>
-                </div>
+                {/* Recordatorio diario */}
+                <IonCard className="setting-card">
+                  <IonCardContent className="setting-grid">
+                    <div className="setting-left icon-row">
+                      <IonIcon
+                        icon={notificationsOutline}
+                        className="setting-icon purple"
+                      />
+                      <div className="setting-texts">
+                        <p className="setting-title">Recordatorio diario</p>
+                        <p className="setting-sub">
+                          Recibe recordatorios para escribir
+                        </p>
+                      </div>
+                    </div>
 
-                <IonToggle
-                  className="setting-toggle"
-                  checked={dailyReminder}
-                  onIonChange={(e) => {
-                    setDailyReminder(e.detail.checked);
-                    localStorage.setItem(
-                      "dailyReminder",
-                      e.detail.checked.toString()
-                    );
-                  }}
-                />
-              </IonCardContent>
-            </IonCard>
+                    <IonToggle
+                      className="setting-toggle"
+                      checked={dailyReminder}
+                      onIonChange={(e) => {
+                        setDailyReminder(e.detail.checked);
+                        localStorage.setItem(
+                          "dailyReminder",
+                          e.detail.checked.toString()
+                        );
+                      }}
+                    />
+                  </IonCardContent>
+                </IonCard>
 
-            {/* Configurar horario (tarjeta clickeable completa) */}
-            <IonCard
-              className="setting-card clickable setting-card-time"
-              onClick={handleChangeTime}
-            >
-              <IonCardContent className="setting-grid">
-                <div className="setting-left">
-                  <p className="setting-title">Configurar horario</p>
-                  <p className="setting-sub-value">{reminderTime}</p>
-                </div>
+                {/* Configurar horario */}
+                <IonCard
+                  className="setting-card clickable"
+                  onClick={handleChangeTime}
+                >
+                  <IonCardContent className="setting-grid">
+                    <div className="setting-left">
+                      <p className="setting-title">Configurar horario</p>
+                      <p className="setting-sub-value">{reminderTime}</p>
+                    </div>
 
-                <IonIcon
-                  icon={chevronForwardOutline}
-                  className="arrow-icon"
-                />
-              </IonCardContent>
-            </IonCard>
+                    <IonIcon
+                      icon={chevronForwardOutline}
+                      className="arrow-icon"
+                    />
+                  </IonCardContent>
+                </IonCard>
+              </div>
 
-            {/* SEGURIDAD Y PRIVACIDAD */}
-            <p className="section-title">Seguridad y Privacidad</p>
+              {/* -------------------------------- */}
+              {/*   COLUMNA DERECHA — SEGURIDAD    */}
+              {/* -------------------------------- */}
+              <div>
+                <p className="section-title">Seguridad y Privacidad</p>
 
-            {/* PIN de seguridad */}
-            <IonCard
-              className="setting-card clickable"
-              onClick={handleConfigurePin}
-            >
-              <IonCardContent className="setting-grid">
-                <div className="setting-left icon-row">
-                  <IonIcon
-                    icon={lockClosedOutline}
-                    className="setting-icon purple"
-                  />
-                  <div className="setting-texts">
-                    <p className="setting-title">PIN de seguridad</p>
-                    <p className="setting-sub">
-                      Protege tu diario con un PIN
-                    </p>
-                  </div>
-                </div>
+                {/* PIN */}
+                <IonCard
+                  className="setting-card clickable"
+                  onClick={handleConfigurePin}
+                >
+                  <IonCardContent className="setting-grid">
+                    <div className="setting-left icon-row">
+                      <IonIcon
+                        icon={lockClosedOutline}
+                        className="setting-icon purple"
+                      />
+                      <div className="setting-texts">
+                        <p className="setting-title">PIN de seguridad</p>
+                        <p className="setting-sub">
+                          Protege tu diario con un PIN
+                        </p>
+                      </div>
+                    </div>
 
-                <IonIcon
-                  icon={chevronForwardOutline}
-                  className="arrow-icon"
-                />
-              </IonCardContent>
-            </IonCard>
+                    <IonIcon
+                      icon={chevronForwardOutline}
+                      className="arrow-icon"
+                    />
+                  </IonCardContent>
+                </IonCard>
 
-            {/* Eliminar todos los datos */}
-            <IonCard
-              className="setting-card danger clickable"
-              onClick={handleDeleteAll}
-            >
-              <IonCardContent className="setting-grid">
-                <div className="setting-left icon-row">
-                  <IonIcon icon={trashOutline} className="setting-icon red" />
-                  <div className="setting-texts">
-                    <p className="setting-title red">
-                      Eliminar todos los datos
-                    </p>
-                    <p className="setting-sub red">
-                      Esta acción no se puede deshacer
-                    </p>
-                  </div>
-                </div>
-              </IonCardContent>
-            </IonCard>
+                {/* Eliminar datos */}
+                <IonCard
+                  className="setting-card danger clickable"
+                  onClick={handleDeleteAll}
+                >
+                  <IonCardContent className="setting-grid">
+                    <div className="setting-left icon-row">
+                      <IonIcon
+                        icon={trashOutline}
+                        className="setting-icon red"
+                      />
+                      <div className="setting-texts">
+                        <p className="setting-title red">Eliminar todos los datos</p>
+                        <p className="setting-sub red">
+                          Esta acción no se puede deshacer
+                        </p>
+                      </div>
+                    </div>
+                  </IonCardContent>
+                </IonCard>
+              </div>
+            </div>
           </div>
         </div>
       </IonContent>
