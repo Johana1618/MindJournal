@@ -1,16 +1,19 @@
-/* ===== Modal tipo tarjeta centrada (funcional y responsivo) ===== */
 :root {
   --ion-font-family: "Gliker", sans-serif;
 }
 
+/*MOBILE*/
+
+/* ===== Modal tipo tarjeta centrada (funcional y responsivo) ===== */
+
 ion-modal.custom-modal {
-  --width: 90%;
-  --max-width: 500px;
+  --width: 95%;
+  --max-width: 95%;
   --border-radius: 16px;
   --box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
   --backdrop-opacity: 0.4;
   --backdrop-background: rgba(0, 0, 0, 0.4);
-  --max-height: 90vh;
+  --max-height: 80vh;
 }
 
 @font-face {
@@ -38,6 +41,7 @@ ion-modal.custom-modal::part(content) {
   justify-content: flex-start;
   align-items: stretch;
   overflow: hidden;
+  max-height: 80vh;
 }
 
 /* Header y Footer */
@@ -55,25 +59,6 @@ ion-modal.custom-modal ion-header {
 ion-modal.custom-modal ion-footer {
   border-width: 1px 0 0 0;
   padding: 10px;
-}
-
-/* Scroll interno */
-/* ion-modal.custom-modal ion-content::part(scroll) {
-  padding: 16px;
-  overflow-y: auto;
-} */
-
-/* ===== Ajuste responsive (solo en pantallas pequeñas) ===== */
-@media (max-width: 768px) {
-  ion-modal.custom-modal {
-    --width: 95%;
-    --max-width: 95%;
-    --max-height: 80vh;
-  }
-
-  ion-modal.custom-modal::part(content) {
-    max-height: 80vh;
-  }
 }
 
 /* ===== Estilo de botones del modal ===== */
@@ -100,15 +85,10 @@ ion-modal.custom-modal ion-footer ion-button[color="primary"] {
   transition: background 0.2s ease, transform 0.1s ease;
 }
 
-/* Efecto hover para desktop */
-ion-modal.custom-modal ion-footer ion-button[color="primary"]:hover {
-  transform: translateY(-1px);
-}
-
 /* ===== Fondo general de la página ===== */
 
 .diario-page {
---background: #f9ecff;
+  --background: #f9ecff;
 }
 
 /* Contenedor centrado del contenido */
@@ -119,19 +99,11 @@ ion-modal.custom-modal ion-footer ion-button[color="primary"]:hover {
   height: 100%;
 }
 
-/* Ajuste para el contenido cuando sidebar está visible */
-@media (min-width: 768px) {
-  .diario-inner {
-    padding-left: 250px;
-  }
-}
-
 /* Grid del contenido principal */
 .diario-inner > ion-grid {
   padding: 0;
   max-width: 100%;
 }
-
 
 /* Header y logo */
 
@@ -209,8 +181,6 @@ ion-modal.custom-modal ion-footer ion-button[color="primary"]:hover {
   --color: #333;
 }
 
-
-
 .mood-scroll-container {
   display: flex;
   overflow-y: hidden;
@@ -253,16 +223,16 @@ ion-modal.custom-modal ion-footer ion-button[color="primary"]:hover {
   flex-direction: column;
   align-items: center;
   gap: 8px;
-  min-width: 70px;      /* antes 90px → causaba desbordes */
-  flex-shrink: 1;       /* permite reducirse */
+  min-width: 70px;
+  flex-shrink: 1;
 }
 
 .mood-label-text {
   font-size: 13px;
   text-align: center;
-  white-space: normal !important; /* permite varias líneas */
+  white-space: normal !important;
   line-height: 1.2;
-  max-width: 70px; /* evita corte */
+  max-width: 70px;
 }
 
 .mood-circle {
@@ -342,7 +312,8 @@ ion-modal.custom-modal ion-footer ion-button[color="primary"]:hover {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
-  height: 100%;
+  height: auto;
+  max-height: 180px;
 }
 
 .entrada-card ion-card-content {
@@ -354,8 +325,8 @@ ion-modal.custom-modal ion-footer ion-button[color="primary"]:hover {
   align-items: center;
   gap: 12px;
   margin-bottom: 16px;
-  font-size: 0.9rem;
-  font-weight: 600;
+  font-size: 0.2rem;
+  font-weight: 300;
 }
 
 .entrada-text {
@@ -386,88 +357,6 @@ ion-modal.custom-modal ion-footer ion-button[color="primary"]:hover {
   font-size: 1.05rem;
   color: #000000;
   font-weight: 700;
-}
-
-/* ===== Sidebar tipo mockup (solo escritorio) ===== */
-
-/* ocultar sidebar en móviles */
-.sidebar-col {
-  display: none !important;
-}
-
-
-@media (min-width: 768px) {
-  .sidebar-col {
-    display: block;
-    position: fixed;
-    left: 0;
-    top: 56px;
-    bottom: 0;
-    width: 250px;
-    z-index: 10;
-  }
-}
-
-.sidebar {
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
-  border-radius: 0 20px 20px 0;
-  padding: 20px 16px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.sidebar-menu {
-  margin-top: 8px;
-}
-
-/* Cada item del menú */
-.sidebar-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px 14px;
-  border-radius: 14px;
-  cursor: pointer;
-  font-size: 0.95rem;
-  color: #555;
-  margin-bottom: 6px;
-  transition: background 0.15s ease, color 0.15s ease, transform 0.1s ease;
-}
-
-.sidebar-item:hover {
-  background: rgba(122, 43, 214, 0.08);
-  transform: translateX(2px);
-}
-
-.sidebar-item.active {
-  background: rgba(122, 43, 214, 0.12);
-  color: #7a2bd6;
-  font-weight: 600;
-}
-
-.sidebar-icon {
-  font-size: 1.5rem;
-}
-
-/* Estado "online" al final del sidebar */
-
-.sidebar-status {
-  margin-top: 12px;
-  font-size: 0.75rem;
-}
-
-.sidebar-status-pill {
-  display: inline-block;
-  padding: 2px 8px;
-  border-radius: 999px;
-  background: #e4ffe3;
-  color: #1e7c1d;
-  font-weight: 600;
-  bottom: 80px;
 }
 
 /* ===== Estilos modal tipo mockup ===== */
@@ -541,10 +430,6 @@ ion-modal.custom-modal ion-footer ion-button[color="primary"]:hover {
   margin: 0 6px;
 }
 
-
-
-
-
 /* Icono WiFi OFF */
 .header-status-wifi-off {
   position: relative;
@@ -579,38 +464,12 @@ ion-modal.custom-modal ion-footer ion-button[color="primary"]:hover {
   border-radius: 2px;
 }
 
-/* Ocultar el indicador Online del header SOLO en pantallas grandes */
-@media (min-width: 768px) {
-  .header-status {
-    display: none !important;
-  }
+/* Header status visible en mobile */
+.header-status {
+  display: flex !important;
 }
 
-/* Ocultar tab bar en pantallas medianas y grandes (tablet/desktop) */
-@media (min-width: 768px) {
-  ion-tab-bar {
-    display: none !important;
-  }
-}
-
-/* Mostrarlo normalmente en móviles */
-@media (max-width: 767px) {
-  .header-status {
-    display: flex !important;
-  }
-}
-@media (min-width: 768px) {
-  .sidebar-col {
-    display: block !important;
-    position: fixed;
-    left: 0;
-    top: 56px;
-    bottom: 0;
-    width: 250px;
-    z-index: 10;
-  }
-}
-/* ===== BOTONES EDITAR / BORRAR (CORREGIDOS) ===== */
+/* ===== BOTONES EDITAR / BORRAR ===== */
 
 .entrada-actions {
   position: absolute;

@@ -4,13 +4,9 @@ import {
   IonToolbar,
   IonTitle,
   IonContent,
-  IonGrid,
-  IonRow,
-  IonCol,
   IonCard,
   IonCardHeader,
   IonCardTitle,
-  IonCardSubtitle,
   IonCardContent,
   IonButton,
   IonIcon,
@@ -18,7 +14,7 @@ import {
   IonTextarea,
   IonFooter,
   IonButtons,
-  IonText,
+  IonNote,
   IonFab,
   IonFabButton,
   IonRadioGroup,
@@ -26,23 +22,14 @@ import {
   IonItem,
   IonLabel,
   IonItemDivider,
-  IonNote,
-  IonChip,
   IonDatetime,
-  
 } from "@ionic/react";
 import { useEffect, useState, useRef } from "react";
 import {
   addOutline,
   createOutline,
   trashOutline,
-  homeOutline,
-  barChartOutline,
-  searchOutline,
-  wifiOutline,
-  settingsOutline,
 } from "ionicons/icons";
-import { useHistory, useLocation } from "react-router-dom";
 
 import * as Diary from "../services/diary";
 import { Entry, Mood } from "../services/diary";
@@ -65,8 +52,6 @@ const MOOD_EMOJI: Record<Mood, string> = {
   motivado: "😍",
 };
 
-
-
 const Diario: React.FC = () => {
   const [items, setItems] = useState<Entry[]>([]);
   const [showCreate, setShowCreate] = useState(false);
@@ -78,10 +63,6 @@ const Diario: React.FC = () => {
   const [entryDate, setEntryDate] = useState<string>(new Date().toISOString());
 
   const pageRef = useRef<HTMLElement | null>(null);
-
-  const history = useHistory();
-  const location = useLocation();
-  const currentPath = location.pathname;
 
   async function load() {
     const all = await Diary.getAll();
@@ -163,12 +144,6 @@ const Diario: React.FC = () => {
 
   const recentEntries = items.slice(0, 3);
 
-  const goTo = (path: string) => {
-    if (currentPath !== path) {
-      history.push(path);
-    }
-  };
-
   return (
     <IonPage ref={pageRef as any}>
       <IonHeader>
@@ -177,192 +152,93 @@ const Diario: React.FC = () => {
             <div className="diario-logo-title">MindJournal</div>
             <div className="diario-logo-subtitle">Tu diario emocional</div>
           </IonTitle>
-
           <IonButtons slot="end" className="header-status">
-                      <span className="header-status-pill offline">
-                        <span className="header-status-wifi-off" />
-                        Offline
-                      </span>
-                    </IonButtons>
+            <span className="header-status-pill offline">
+              <span className="header-status-wifi-off" />
+              Offline
+            </span>
+          </IonButtons>
         </IonToolbar>
       </IonHeader>
 
       <IonContent className="diario-page ion-padding">
-        <div className="diario-inner">
-          <IonGrid>
-            <IonRow>
-              <IonCol className="sidebar-col">
-                <div className="sidebar">
-                  <div>
-                    <div className="sidebar-menu">
-                      <div
-                        className={
-                          "sidebar-item" +
-                          (currentPath === "/diario" ? " active" : "")
-                        }
-                        onClick={() => goTo("/diario")}
-                      >
-                        <IonIcon icon={homeOutline} className="sidebar-icon" />
-                        <span>Inicio</span>
-                      </div>
+        {items.length === 0 && (
+          <IonNote className="diario-empty"></IonNote>
+        )}
 
-                      <div
-                        className={
-                          "sidebar-item" +
-                          (currentPath === "/estadisticas" ? " active" : "")
-                        }
-                        onClick={() => goTo("/estadisticas")}
-                      >
-                        <IonIcon
-                          icon={barChartOutline}
-                          className="sidebar-icon"
-                        />
-                        <span>Estadísticas</span>
-                      </div>
-
-                      <div
-                        className={
-                          "sidebar-item" +
-                          (currentPath === "/busqueda" ? " active" : "")
-                        }
-                        onClick={() => goTo("/busqueda")}
-                      >
-                        <IonIcon
-                          icon={searchOutline}
-                          className="sidebar-icon"
-                        />
-                        <span>Buscar</span>
-                      </div>
-
-                      <div
-                        className={
-                          "sidebar-item" +
-                          (currentPath === "/ajustes" ? " active" : "")
-                        }
-                        onClick={() => goTo("/ajustes")}
-                      >
-                        <IonIcon
-                          icon={settingsOutline}
-                          className="sidebar-icon"
-                        />
-                        <span>Ajustes</span>
-                      </div>
-                      
-                    </div>
-                    
+        <IonCard className="estado-hoy-card">
+          <IonCardHeader className="Titulos">
+            <div className="header-content">
+              <IonCardTitle>Estado de hoy</IonCardTitle>
+              <IonCardTitle className="calendar-icon">🗓️</IonCardTitle>
+            </div>
+          </IonCardHeader>
+          <IonCardContent>
+            <div className="mood-scroll-container">
+              {(Object.keys(MOOD_LABEL) as Mood[]).map((m) => (
+                <div key={m} className="mood-item">
+                  <div
+                    className={`mood-circle ${m === (todayEntry?.mood ?? mood) ? "selected" : ""
+                      }`}
+                  >
+                    <span className="mood-emoji-large">
+                      {MOOD_EMOJI[m]}
+                    </span>
+                  </div>
+                  <span className="mood-label-text">{MOOD_LABEL[m]}</span>
                 </div>
-                <IonButtons slot="end" className="header-status">
-                            <span className="header-status-pill offline">
-                              <span className="header-status-wifi-off" />
-                              Offline
-                            </span>
-                          </IonButtons>
+              ))}
+            </div>
+          </IonCardContent>
+        </IonCard>
+
+        {items.length > 0 && (
+          <>
+            <div className="section-header">
+              <h2>Mis entradas</h2>
+              <h2><a href="">Ver todas</a></h2>
+            </div>
+
+            {recentEntries.map((e) => (
+              <IonCard key={e.id} className="entrada-card">
+                <div className="entrada-actions">
+                  <div
+                    className="entrada-action-btn-edit"
+                    onClick={() => openEdit(e)}
+                  >
+                    <IonIcon icon={createOutline} />
                   </div>
 
-                  
-              </IonCol>
+                  <div
+                    className="entrada-action-btn-remove"
+                    onClick={() => onRemove(e)}
+                  >
+                    <IonIcon icon={trashOutline} />
+                  </div>
+                </div>
 
-              <IonCol size="12" sizeMd="9">
-                {items.length === 0 && (
-                  <IonNote className="diario-empty"></IonNote>
-                )}
-
-                <IonGrid fixed>
-                  <IonRow>
-                    <IonCol size="12">
-                      <IonCard className="estado-hoy-card">
-                        <IonCardHeader className="Titulos">
-                          <div className="header-content">
-                            <IonCardTitle>Estado de hoy</IonCardTitle>
-                            <IonCardTitle className="calendar-icon">🗓️</IonCardTitle>
-                          </div>
-
-                          
-                        </IonCardHeader>
-                        <IonCardContent>
-                          <div className="mood-scroll-container">
-                            {(Object.keys(MOOD_LABEL) as Mood[]).map((m) => (
-                              <div key={m} className="mood-item">
-                                <div
-                                  className={`mood-circle ${m === (todayEntry?.mood ?? mood) ? "selected" : ""
-                                    }`}
-                                >
-                                  <span className="mood-emoji-large">
-                                    {MOOD_EMOJI[m]}
-                                  </span>
-                                </div>
-                                <span className="mood-label-text">{MOOD_LABEL[m]}</span>
-                              </div>
-                            ))}
-                          </div>
-                        </IonCardContent>
-                      </IonCard>
-                    </IonCol>
-                  </IonRow>
-
-                  {items.length > 0 && (
-                    <IonRow>
-                      <IonCol size="12">
-                        <div className="section-header">
-                          <h2>Mis entradas</h2>
-                          <h2><a href="">Ver todas</a></h2>
-                        </div>
-                      </IonCol>
-
-                      {recentEntries.map((e) => (
-                        <IonCol
-                          size="12"
-                          sizeMd="6"
-                          key={e.id}
-                          className="entrada-col"
-                        >
-                          <IonCard className="entrada-card">
-                            {/* BOTONES EDITAR / BORRAR */}
-                            <div className="entrada-actions">
-                              <div
-                                className="entrada-action-btn-edit"
-                                onClick={() => openEdit(e)}
-                              >
-                                <IonIcon icon={createOutline} />
-                              </div>
-
-                              <div
-                                className="entrada-action-btn-remove"
-                                onClick={() => onRemove(e)}
-                              >
-                                <IonIcon icon={trashOutline} />
-                              </div>
-                            </div>
-
-                            <IonCardContent>
-                              <div className="entrada-header">
-                                <span className="entrada-mood">
-                                  {MOOD_EMOJI[e.mood]}
-                                </span>
-                                <span className="entrada-label">
-                                  {MOOD_LABEL[e.mood]}
-                                </span>
-                                <span className="entrada-date">
-                                  {new Date(e.dateISO).toLocaleDateString("es-ES", {
-                                    day: "numeric",
-                                    month: "short",
-                                    year: "numeric",
-                                  })}
-                                </span>
-                              </div>
-                              <p className="entrada-text">{e.text}</p>
-                            </IonCardContent>
-                          </IonCard>
-                        </IonCol>
-                      ))}
-
-                    </IonRow>
-                  )}
-                </IonGrid>
-              </IonCol>
-            </IonRow>
-          </IonGrid>
-        </div>
+                <IonCardContent>
+                  <div className="entrada-header">
+                    <span className="entrada-mood">
+                      {MOOD_EMOJI[e.mood]}
+                    </span>
+                    <span className="entrada-label">
+                      {MOOD_LABEL[e.mood]}
+                    </span>
+                    <span className="entrada-date">
+                      {new Date(e.dateISO).toLocaleDateString("es-ES", {
+                        day: "numeric",
+                        month: "short",
+                        year: "numeric",
+                      })}
+                    </span>
+                  </div>
+                  <p className="entrada-text">{e.text}</p>
+                </IonCardContent>
+              </IonCard>
+            ))}
+          </>
+        )}
 
         <IonFab vertical="bottom" horizontal="end" slot="fixed">
           <IonFabButton color="primary" onClick={openCreate}>
