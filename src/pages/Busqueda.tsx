@@ -50,9 +50,7 @@ const Busqueda: React.FC = () => {
         <IonToolbar>
           <div className="search-header">
             <h1 className="search-header-title">Búsqueda</h1>
-            <p className="search-header-subtitle">
-              Encuentra tus entradas por palabra, emoción o fecha
-            </p>
+           
           </div>
         </IonToolbar>
       </IonHeader>
@@ -100,7 +98,7 @@ const Busqueda: React.FC = () => {
                 <IonIcon icon={searchOutline} slot="start" />
                 <IonInput
                   value={query}
-                  placeholder="Buscar por palabra, emoción o fecha..."
+                  placeholder="Hoy"
                   onIonChange={(e) => setQuery(e.detail.value || "")}
                 />
                 {query && (

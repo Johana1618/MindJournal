@@ -21,7 +21,7 @@ import {
   chevronForwardOutline,
 } from "ionicons/icons";
 
-import "../assets/styles/general.css";
+// import "../assets/styles/general.css";
 import "../assets/styles/ajustes.css";
 
 import { useState } from "react";
@@ -89,9 +89,7 @@ const Ajustes: React.FC = () => {
         <IonToolbar>
           <div className="titulo-container">
             <IonTitle className="titulo">Ajustes</IonTitle>
-            <p className="subtitulo">
-              Administra la configuración de tu diario
-            </p>
+          
           </div>
         </IonToolbar>
       </IonHeader>

@@ -124,6 +124,7 @@
   font-weight: 600;
   margin-bottom: 1rem;
   color: #333;
+  text-align: center;
 }
 
 /* Últimos 7 días */
@@ -133,8 +134,10 @@
 
 .week-row {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   gap: 0.75rem;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 .week-day {
@@ -301,7 +304,7 @@
   }
 
   .app-logo {
-    font-size: 1.2rem;
+  font-size: 1.4rem;
   }
 
   .app-subtitle {
@@ -360,4 +363,38 @@
   .dist-percentage {
     font-size: 0.75rem;
   }
+}
+
+/* Icono WiFi OFF */
+.header-status-wifi-off {
+  position: relative;
+  width: 14px;
+  height: 14px;
+}
+
+/* Arco WiFi */
+.header-status-wifi-off::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 2px;
+  transform: translateX(-50%);
+  width: 12px;
+  height: 12px;
+  border: 2px solid transparent;
+  border-top-color: #00542c;
+  border-radius: 50%;
+} 
+
+/* Rayita de corte */
+.header-status-wifi-off::after {
+  content: "";
+  position: absolute;
+  top: 5px;
+  left: 2px;
+  width: 10px;
+  height: 2px;
+  background: #000000;
+  transform: rotate(-45deg);
+  border-radius: 2px;
 }

@@ -5,6 +5,8 @@ import {
   IonToolbar,
   IonContent,
   IonIcon,
+  IonButtons,
+
 } from "@ionic/react";
 import { useHistory, useLocation } from "react-router-dom";
 import {
@@ -43,9 +45,8 @@ function toISODate(d: Date): string {
 }
 
 function weekdayIndex(date: Date): number {
-  // JS: 0=Domingo ... 6=Sabado  →  queremos 0=Lunes ... 6=Domingo
-  const js = date.getDay();
-  return js === 0 ? 6 : js - 1;
+  // Convierte domingo=0 a domingo=6, y lunes=1 a lunes=0
+  return (date.getDay() + 5) % 7;
 }
 
 const Estadisticas: React.FC = () => {
@@ -91,7 +92,6 @@ const Estadisticas: React.FC = () => {
 
     return result;
   }, [entries]);
-
   // Conteo de emociones y días felices
   const stats = useMemo(() => {
     const counts: Record<Mood, number> = {
@@ -134,10 +134,18 @@ const Estadisticas: React.FC = () => {
         <IonToolbar className="app-toolbar">
           <div className="app-brand">
             <div className="app-logo">Estadísticas</div>
+            <br />
             <div className="app-subtitle">Analiza tu estado emocional</div>
           </div>
+          <IonButtons slot="end" className="header-status">
+            <span className="header-status-pill offline">
+              <span className="header-status-wifi-off" />
+              Offline
+            </span>
+          </IonButtons>
         </IonToolbar>
       </IonHeader>
+
 
       <IonContent fullscreen className="estadisticas-page">
         <div className="stats-layout">
@@ -196,7 +204,36 @@ const Estadisticas: React.FC = () => {
           </aside>
 
           {/* CONTENIDO PRINCIPAL (ya SIN el título duplicado) */}
+
           <main className="stats-main">
+            <div className="stats-card stats-distribution">
+              <div className="stats-card-title">Distribución de emociones</div>
+
+              <div className="dist-list">
+                {moodsOrder.map((mood) => {
+                  const value = stats.counts[mood] || 0;
+                  const pct =
+                    stats.total > 0
+                      ? Math.round((value * 100) / stats.total)
+                      : 0;
+                  return (
+                    <div className="dist-row" key={mood}>
+                      <div className="dist-label">
+                        <span className="dist-emoji">{moodEmoji[mood]}</span>
+                        <span>{moodLabel[mood]}</span>
+                      </div>
+                      <div className="dist-bar-wrapper">
+                        <div
+                          className="dist-bar-fill"
+                          style={{ width: `${pct}%` }}
+                        />
+                      </div>
+                      <div className="dist-percentage">{pct}%</div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
             {/* Tarjeta últimos 7 días */}
             <section className="stats-card stats-week">
               <div className="stats-card-title">Últimos 7 días</div>
@@ -227,34 +264,7 @@ const Estadisticas: React.FC = () => {
                 </div>
               </div>
 
-              <div className="stats-card stats-distribution">
-                <div className="stats-card-title">Distribución de emociones</div>
 
-                <div className="dist-list">
-                  {moodsOrder.map((mood) => {
-                    const value = stats.counts[mood] || 0;
-                    const pct =
-                      stats.total > 0
-                        ? Math.round((value * 100) / stats.total)
-                        : 0;
-                    return (
-                      <div className="dist-row" key={mood}>
-                        <div className="dist-label">
-                          <span className="dist-emoji">{moodEmoji[mood]}</span>
-                          <span>{moodLabel[mood]}</span>
-                        </div>
-                        <div className="dist-bar-wrapper">
-                          <div
-                            className="dist-bar-fill"
-                            style={{ width: `${pct}%` }}
-                          />
-                        </div>
-                        <div className="dist-percentage">{pct}%</div>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
             </section>
           </main>
         </div>

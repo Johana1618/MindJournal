@@ -3,6 +3,15 @@
   --background: #f7eaff;
   padding: 20px;
 }
+@font-face {
+    font-family: "Gliker";
+    src: url("../assets/fonts/Gliker-Regular.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+body {
+    font-family: "Gliker", sans-serif;
+}
 
 /* Título principal */
 .ajustes-title {
@@ -10,6 +19,13 @@
   font-weight: 800;
   color: #7a2ff2;
   margin: 0 0 4px 0;
+}
+.titulo-container .titulo{
+ margin: 0;
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #7b2bff;
+
 }
 
 .ajustes-top-row {
@@ -86,9 +102,9 @@
   justify-content: center;
 }
 
-.user-name {
-  font-size: 20px;
-  font-weight: 600;
+.user-info .user-name {
+  font-size: 30px;
+  color: #6b3ec6;
 }
 
 /* ======== TITULOS DE SECCIÓN ======== */
