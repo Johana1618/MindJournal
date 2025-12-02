@@ -29,7 +29,7 @@ const moodEmoji: Record<Mood, string> = {
   triste: "😔",
   ansioso: "😰",
   tranquilo: "😌",
-  motivado: "🚀",
+  enamorado: "😍",
 };
 
 const moodLabel: Record<Mood, string> = {
@@ -37,7 +37,7 @@ const moodLabel: Record<Mood, string> = {
   triste: "Triste",
   ansioso: "Ansioso",
   tranquilo: "Tranquilo",
-  motivado: "Motivado",
+  enamorado: "Enamorado",
 };
 
 function toISODate(d: Date) {
@@ -101,7 +101,7 @@ const Estadisticas: React.FC = () => {
       triste: 0,
       ansioso: 0,
       tranquilo: 0,
-      motivado: 0,
+      enamorado: 0,
     };
 
     entries.forEach((e) => {
@@ -126,7 +126,7 @@ const Estadisticas: React.FC = () => {
     "triste",
     "ansioso",
     "tranquilo",
-    "motivado",
+    "enamorado",
   ];
 
   return (

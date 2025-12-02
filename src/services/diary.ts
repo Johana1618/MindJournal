@@ -2,7 +2,7 @@
 
 const STORAGE_KEY = "mindjournal_entries_v1";
 
-export type Mood = "feliz" | "triste" | "ansioso" | "tranquilo" | "motivado";
+export type Mood = "feliz" | "triste" | "ansioso" | "tranquilo" | "enamorado";
 
 export interface Entry {
   id: string;

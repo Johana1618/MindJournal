@@ -40,7 +40,7 @@ const MOOD_LABEL: Record<Mood, string> = {
   triste: "Triste",
   ansioso: "Ansioso",
   tranquilo: "Tranquilo",
-  motivado: "Enamorado",
+  enamorado: "Enamorado", // This line remains unchanged
 };
 
 const MOOD_EMOJI: Record<Mood, string> = {
@@ -48,7 +48,7 @@ const MOOD_EMOJI: Record<Mood, string> = {
   triste: "😰",
   ansioso: "😨",
   tranquilo: "😌",
-  motivado: "😍",
+  enamorado: "😍", // This line remains unchanged
 };
 
 /* ------------------ COMPONENTE ------------------ */
@@ -313,7 +313,7 @@ const Diario: React.FC = () => {
               value={mood}
               onIonChange={(e) => setMood(e.detail.value as Mood)}
             >
-              {["feliz", "triste", "ansioso", "tranquilo", "motivado"].map(
+              {["feliz", "triste", "ansioso", "tranquilo", "enamorado"].map(
                 (m) => (
                   <IonItem key={m} className="entry-mood-item">
                     <IonLabel>
@@ -394,7 +394,7 @@ const Diario: React.FC = () => {
               value={mood}
               onIonChange={(e) => setMood(e.detail.value as Mood)}
             >
-              {["feliz", "triste", "ansioso", "tranquilo", "motivado"].map(
+              {["feliz", "triste", "ansioso", "tranquilo", "enamorado"].map(
                 (m) => (
                   <IonItem key={m}>
                     <IonLabel>

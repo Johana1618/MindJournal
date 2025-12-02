@@ -35,19 +35,14 @@
    LAYOUT: Reservar espacio para sidebar fijo
    ========================= */
 
-/* Contenedor principal — dejamos espacio en la izquierda para el sidebar (310px) */
+/* Contenedor principal */
 .search-layout {
   max-width: 1200px;
   margin: 1.5rem auto 5rem;
   padding: 0 1.5rem;
   box-sizing: border-box;
-
-  /* espacio a la izquierda para el sidebar fijo (ancho del sidebar + separación) */
   padding-left: calc(310px + 1rem);
-
-  /* el flujo del documento contiene solo el área de contenido; el sidebar será fixed */
   display: block;
-  gap: 0;
 }
 
 /* =========================
@@ -55,19 +50,15 @@
    ========================= */
 
 .search-sidebar {
-  /* mantenemos selector para compatibilidad, pero el posicionamiento lo hacemos sobre .sidebar-card */
   width: 310px;
 }
 
-/* Sidebar visual: fijo y ocupando el alto debajo del header */
 .sidebar-card {
   position: fixed;
   left: 0;
-  top: 56px;            /* altura del header; ajusta si tu header tiene otra altura */
+  top: 56px;
   bottom: 0;
   width: 310px;
-  margin: 0;
-  z-index: 30;
   background: #ffffff;
   border-radius: 0 18px 18px 0;
   padding: 1.5rem 1.25rem;
@@ -77,19 +68,6 @@
   gap: 1rem;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
-}
-
-/* Logo / texto superior si lo tienes */
-.sidebar-logo {
-  font-weight: 800;
-  font-size: 1.4rem;
-  color: #7b2bff;
-}
-
-.sidebar-subtitle {
-  font-size: 0.8rem;
-  color: #888;
-  margin: 0;
 }
 
 /* Navegación lateral */
@@ -128,43 +106,33 @@
   color: white;
 }
 
-/* Estado online pill */
+/* ====== NUEVA SECCIÓN: Estado Offline (WiFi Badge) ====== */
+/* Este bloque reemplaza al antiguo .sidebar-status estilo pill */
+
 .sidebar-status {
-  margin-top: auto;
-  padding: 0.4rem 0.7rem;
-  background: #e9ffe9;
-  border-radius: 999px;
-  font-size: 0.75rem;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.3rem;
-  color: #228b22;
+  margin-top: auto;      /* empuja el badge hacia abajo */
+  padding: 0;
+  background: none;      /* sin fondo, sin interferencias */
+  border-radius: 0;
+  color: inherit;
 }
 
-.status-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 999px;
-  background: #22c55e;
-}
-
-/* ===== ICONO WIFI OFF ===== */
-/* Badge verde con icono + texto */
+/* Badge verde con WiFi (misma versión que Diario y Estadísticas) */
 .status-badge {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 6px 14px;
-  background: #8cec57;      /* verde claro */
-  border-radius: 40px;       /* forma ovalada */
+  padding: 4px 10px;
+  background: #8cec57;
+  border-radius: 40px;
   font-weight: 700;
   width: fit-content;
-  padding: 4px 10px;
+  transform: scale(0.9);
 }
 
 .status-text {
-  color: #00542c;            /* verde oscuro */
-  font-size: 0,90 rem;
+  color: #00542c;
+  font-size: 0.85rem;
 }
 
 /* =========================
@@ -172,10 +140,9 @@
    ========================= */
 
 .search-main {
-  background: transparent;
   width: 100%;
   max-width: 920px;
-  margin: 0 auto; /* centra el contenido dentro del área disponible */
+  margin: 0 auto;
   box-sizing: border-box;
 }
 
@@ -236,7 +203,7 @@
 
 .search-card-mood {
   font-weight: 600;
-  font-size: 25px;
+  font-size: 19px;
 }
 
 .search-card-date {
@@ -261,7 +228,7 @@
   color: #7b2bff;
 }
 
-/* Empty result message spans full width of grid */
+/* Mensaje vacío */
 .search-empty {
   grid-column: 1 / -1;
   font-size: 0.9rem;
@@ -269,24 +236,19 @@
 }
 
 /* =========================
-   RESPONSIVE: bajar a una sola columna y volver sidebar a flujo
+   RESPONSIVE
    ========================= */
 
 @media (max-width: 900px) {
-  /* Contenedor vuelve a flujo normal y ocupa todo */
   .search-layout {
-    padding-left: 1.5rem; /* quitamos espacio fijo para sidebar */
+    padding-left: 1.5rem;
     max-width: 100%;
     margin: 1rem auto 5rem;
-    display: block;
   }
 
-  /* Sidebar ya no fijo y se muestra encima del contenido como bloque */
   .sidebar-card {
     position: static;
     width: 100%;
-    top: auto;
-    bottom: auto;
     border-radius: 12px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
     padding: 1rem;
@@ -294,16 +256,14 @@
 
   .search-main {
     max-width: 100%;
-    margin: 1rem 0 0;
+    margin-top: 1rem;
   }
 
   .search-results {
     grid-template-columns: 1fr;
-    gap: 1rem;
   }
 }
 
-/* Ajustes finos para móviles muy pequeños */
 @media (max-width: 600px) {
   .search-header {
     padding: 0.5rem 1rem 0.75rem;
@@ -321,10 +281,10 @@
     padding: 0.3rem 0.6rem;
   }
 }
+
+/* Ocultar sidebar en pantallas muy pequeñas */
 @media (max-width: 700px) {
   .sidebar-card {
-    display: none; /* SE OCULTA EL SIDEBAR */
+    display: none;
   }
 }
-
-/* Nota: si tu header tiene otra altura distinta a 56px, ajusta "top: 56px" en .sidebar-card */
