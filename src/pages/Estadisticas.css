@@ -453,39 +453,28 @@
   }
 }
 
-/* Icono WiFi OFF */
-.header-status-wifi-off {
-  position: relative;
-  width: 14px;
-  height: 14px;
+/* ===== ICONO WIFI OFF ===== */
+/* Badge verde con icono + texto */
+.status-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  background: #8cec57;      /* verde claro */
+  border-radius: 40px;       /* forma ovalada */
+  font-weight: 700;
+  width: fit-content;
+  padding: 4px 10px;
 }
 
-/* Arco WiFi */
-.header-status-wifi-off::before {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 2px;
-  transform: translateX(-50%);
-  width: 12px;
-  height: 12px;
-  border: 2px solid transparent;
-  border-top-color: #00542c;
-  border-radius: 50%;
+.status-text {
+  color: #00542c;            /* verde oscuro */
+  font-size: 0,90 rem;
 }
 
-/* Rayita de corte */
-.header-status-wifi-off::after {
-  content: "";
-  position: absolute;
-  top: 5px;
-  left: 2px;
-  width: 10px;
-  height: 2px;
-  background: #000000;
-  transform: rotate(-45deg);
-  border-radius: 2px;
-}
+
+
+
 @media (max-width: 700px) {
   .side-card {
     display: none; /* SE OCULTA EL SIDEBAR */

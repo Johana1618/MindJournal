@@ -148,6 +148,25 @@
   background: #22c55e;
 }
 
+/* ===== ICONO WIFI OFF ===== */
+/* Badge verde con icono + texto */
+.status-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  background: #8cec57;      /* verde claro */
+  border-radius: 40px;       /* forma ovalada */
+  font-weight: 700;
+  width: fit-content;
+  padding: 4px 10px;
+}
+
+.status-text {
+  color: #00542c;            /* verde oscuro */
+  font-size: 0,90 rem;
+}
+
 /* =========================
    CONTENIDO PRINCIPAL
    ========================= */

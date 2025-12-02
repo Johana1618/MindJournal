@@ -6,7 +6,6 @@ import {
   IonContent,
   IonIcon,
   IonButtons,
-
 } from "@ionic/react";
 import { useHistory, useLocation } from "react-router-dom";
 import {
@@ -48,9 +47,7 @@ function toISODate(d: Date) {
   return `${year}-${month}-${day}`;
 }
 
-
 function weekdayIndex(date: Date): number {
-  // Convierte domingo=0 a domingo=6, y lunes=1 a lunes=0
   return (date.getDay() + 5) % 7;
 }
 
@@ -67,7 +64,7 @@ const Estadisticas: React.FC = () => {
     })();
   }, []);
 
-  // Últimos 7 días (L a D, de más antiguo a más reciente)
+  // Últimos 7 días
   const last7Days = useMemo(() => {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
@@ -97,7 +94,7 @@ const Estadisticas: React.FC = () => {
 
     return result;
   }, [entries]);
-  // Conteo de emociones y días felices
+
   const stats = useMemo(() => {
     const counts: Record<Mood, number> = {
       feliz: 0,
@@ -134,29 +131,50 @@ const Estadisticas: React.FC = () => {
 
   return (
     <IonPage className="estadisticas-page">
-      {/* HEADER SUPERIOR: ahora muestra Estadísticas */}
+
+      {/* ------------ HEADER CON WIFI NUEVO ------------- */}
       <IonHeader>
         <IonToolbar className="app-toolbar">
           <div className="app-brand">
             <div className="app-logo">Estadísticas</div>
-            <br />
             <div className="app-subtitle">Analiza tu estado emocional</div>
           </div>
-          <IonButtons slot="end" className="header-status">
-            <span className="header-status-pill offline">
-              <span className="header-status-wifi-off" />
-              Offline
-            </span>
+
+          <IonButtons slot="end">
+            <div className="status-badge">
+              {/* ÍCONO WIFI OFF (SVG NUEVO) */}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="#00542c"
+              >
+                <path d="M12 20c.6 0 1-.4 1-1s-.4-1-1-1-1 .4-1 1 .4 1 1 1zm4.9-3.9l.7-.7c.2-.2.2-.5 0-.7-1.4-1.4-3.3-2.2-5.3-2.2s-3.9.8-5.3 2.2c-.2.2-.2.5 0 .7l.7.7c.2.2.5.2.7 0 1-1 2.4-1.6 3.9-1.6s2.9.6 3.9 1.6c.2.2.6.2.8 0zm2.8-2.8l.7-.7c.2-.2.2-.5 0-.7C17.8 9.2 15 8 12 8s-5.8 1.2-7.7 3.1c-.2.2-.2.5 0 .7l.7.7c.2.2.5.2.7 0C7.1 10.7 9.4 10 12 10s4.9.7 6.3 2.1c.3.2.6.2.8 0zm2.8-2.8l.7-.7c.2-.2.2-.5 0-.7C19.6 6 16 4.5 12 4.5S4.4 6 2.6 7.9c-.2.2-.2.5 0 .7l.7.7c.2.2.5.2.7 0C5.5 7.1 8.6 6 12 6s6.5 1.1 8 3.3c.2.3.5.3.7 0z" />
+                <line
+                  x1="3"
+                  y1="21"
+                  x2="21"
+                  y2="3"
+                  stroke="#00542c"
+                  strokeWidth="2"
+                />
+              </svg>
+
+              <span className="status-text">Offline</span>
+            </div>
           </IonButtons>
         </IonToolbar>
       </IonHeader>
 
-
+      {/* ------------ CONTENIDO ------------- */}
       <IonContent fullscreen className="estadisticas-page">
         <div className="stats-layout">
-          {/* MENU LATERAL IZQUIERDO (sin título MindJournal) */}
+
+          {/* MENU LATERAL IZQUIERDO */}
           <aside className="side-card">
             <nav className="side-nav">
+
               <button
                 className={
                   "side-nav-item" +
@@ -202,6 +220,7 @@ const Estadisticas: React.FC = () => {
               </button>
             </nav>
 
+            {/* SIDEBAR - ESTADO OFFLINE */}
             <div className="sidebar-status">
               <span className="status-icon-with-slash">
                 <IonIcon icon={wifiOutline} />
@@ -211,8 +230,7 @@ const Estadisticas: React.FC = () => {
             </div>
           </aside>
 
-          {/* CONTENIDO PRINCIPAL (ya SIN el título duplicado) */}
-
+          {/* CONTENIDO PRINCIPAL */}
           <main className="stats-main">
 
             {/* DISTRIBUCIÓN DE EMOCIONES */}
@@ -247,9 +265,11 @@ const Estadisticas: React.FC = () => {
                 })}
               </div>
             </div>
-            {/* TARJETA: ULTIMOS 7 DÍAS */}
+
+            {/* ULTIMOS 7 DIAS */}
             <section className="stats-card stats-week big-week">
               <div className="stats-card-title">Últimos 7 días</div>
+
               <div className="week-row">
                 {last7Days.map((d) => (
                   <div className="week-day" key={d.iso}>
@@ -267,10 +287,8 @@ const Estadisticas: React.FC = () => {
               </div>
             </section>
 
-            {/* GRID: DÍAS FELICES + DISTRIBUCIÓN */}
+            {/* DÍAS FELICES */}
             <section className="stats-grid-row">
-
-              {/* DÍAS FELICES */}
               <div className="stats-card stats-happy big-happy">
                 <div className="happy-emoji">😁</div>
                 <div className="happy-info">
@@ -278,12 +296,9 @@ const Estadisticas: React.FC = () => {
                   <div className="happy-label">Días felices</div>
                 </div>
               </div>
-
-
-
             </section>
-          </main>
 
+          </main>
         </div>
       </IonContent>
     </IonPage>
