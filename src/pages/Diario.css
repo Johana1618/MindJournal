@@ -189,6 +189,7 @@ ion-modal.custom-modal ion-footer ion-button[color="primary"] {
   justify-content: flex-start !important;
   gap: 14px;
   -webkit-overflow-scrolling: touch;
+  padding-left: 30px;
 }
 
 .mood-scroll-container::-webkit-scrollbar {

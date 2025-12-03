@@ -64,10 +64,21 @@ const Estadisticas: React.FC = () => {
     })();
   }, []);
 
-  // Últimos 7 días
+  
+  function toISODateUTC(d: Date) {
+    // Devuelve YYYY-MM-DD sin zona horaria
+    const year = d.getUTCFullYear();
+    const month = String(d.getUTCMonth() + 1).padStart(2, "0");
+    const day = String(d.getUTCDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  }
+
   const last7Days = useMemo(() => {
     const today = new Date();
-    today.setHours(0, 0, 0, 0);
+
+    const base = new Date(
+      Date.UTC(today.getFullYear(), today.getMonth(), today.getDate())
+    );
 
     const result: {
       label: string;
@@ -76,17 +87,19 @@ const Estadisticas: React.FC = () => {
     }[] = [];
 
     for (let diff = 6; diff >= 0; diff--) {
-      const d = new Date(today);
-      d.setDate(today.getDate() - diff);
+      const d = new Date(base);
+      d.setUTCDate(base.getUTCDate() - diff);
 
-      const iso = toISODate(d);
+      const iso = toISODateUTC(d);
+
       const dayEntries = entries.filter(
         (e) => e.dateISO.slice(0, 10) === iso
       );
-      const lastEntry = dayEntries[dayEntries.length - 1] || null;
+
+      const lastEntry = dayEntries.at(-1) ?? null;
 
       result.push({
-        label: WEEKDAY_LABELS[weekdayIndex(d)],
+        label: new Intl.DateTimeFormat("es-ES", { weekday: "short", timeZone: "UTC" }).format(d),
         mood: lastEntry ? lastEntry.mood : null,
         iso,
       });
@@ -94,6 +107,7 @@ const Estadisticas: React.FC = () => {
 
     return result;
   }, [entries]);
+
 
   const stats = useMemo(() => {
     const counts: Record<Mood, number> = {
@@ -172,63 +186,7 @@ const Estadisticas: React.FC = () => {
         <div className="stats-layout">
 
           {/* MENU LATERAL IZQUIERDO */}
-          <aside className="side-card">
-            <nav className="side-nav">
 
-              <button
-                className={
-                  "side-nav-item" +
-                  (location.pathname === "/diario" ? " active" : "")
-                }
-                onClick={() => history.push("/diario")}
-              >
-                <IonIcon icon={homeOutline} />
-                <span>Inicijhiohoho</span>
-              </button>
-
-              <button
-                className={
-                  "side-nav-item" +
-                  (location.pathname === "/estadisticas" ? " active" : "")
-                }
-                onClick={() => history.push("/estadisticas")}
-              >
-                <IonIcon icon={barChartOutline} />
-                <span>Estadísticas</span>
-              </button>
-
-              <button
-                className={
-                  "side-nav-item" +
-                  (location.pathname === "/busqueda" ? " active" : "")
-                }
-                onClick={() => history.push("/busqueda")}
-              >
-                <IonIcon icon={searchOutline} />
-                <span>Buscar</span>
-              </button>
-
-              <button
-                className={
-                  "side-nav-item" +
-                  (location.pathname === "/ajustes" ? " active" : "")
-                }
-                onClick={() => history.push("/ajustes")}
-              >
-                <IonIcon icon={settingsOutline} />
-                <span>Ajustes</span>
-              </button>
-            </nav>
-
-            {/* SIDEBAR - ESTADO OFFLINE */}
-            <div className="sidebar-status">
-              <span className="status-icon-with-slash">
-                <IonIcon icon={wifiOutline} />
-                <span className="icon-slash" />
-              </span>
-              <span>Offlinessss</span>
-            </div>
-          </aside>
 
           {/* CONTENIDO PRINCIPAL */}
           <main className="stats-main">
@@ -260,6 +218,7 @@ const Estadisticas: React.FC = () => {
                       </div>
 
                       <div className="dist-percentage">{pct}%</div>
+                      
                     </div>
                   );
                 })}

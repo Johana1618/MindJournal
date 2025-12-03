@@ -91,30 +91,9 @@ const Ajustes: React.FC = () => {
 
       {/* CONTENIDO */}
       <IonContent fullscreen className="content">
-        <div className="ajustes-wrapper">
+
           
-          {/* ===================== */}
-          {/*        SIDEBAR        */}
-          {/* ===================== */}
-          <div className="left-menu-container">
-            <ul>
-              <li onClick={() => history.push("/diario")}>
-                <IonIcon icon={homeOutline} /> Inicio
-              </li>
 
-              <li onClick={() => history.push("/estadisticas")}>
-                <IonIcon icon={barChartOutline} /> Estadísticas
-              </li>
-
-              <li onClick={() => history.push("/busqueda")}>
-                <IonIcon icon={searchOutline} /> Buscar
-              </li>
-
-              <li className="active">
-                <IonIcon icon={settingsOutline} /> Ajustes
-              </li>
-            </ul>
-          </div>
 
           {/* ===================== */}
           {/*       CONTENIDO       */}
@@ -246,7 +225,7 @@ const Ajustes: React.FC = () => {
               </div>
             </div>
           </div>
-        </div>
+  
       </IonContent>
     </IonPage>
   );

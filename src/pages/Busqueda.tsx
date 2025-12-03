@@ -96,36 +96,6 @@ const Busqueda: React.FC = () => {
       <IonContent fullscreen className="search-page">
         <div className="search-layout">
 
-          {/* -------- SIDEBAR (sin wifi) -------- */}
-          <aside className="search-sidebar">
-            <div className="sidebar-card">
-
-              <nav className="sidebar-nav">
-
-                <a href="/diario" className="sidebar-link">
-                  <IonIcon icon={homeOutline} />
-                  <span>Inicio</span>
-                </a>
-
-                <a href="/estadisticas" className="sidebar-link">
-                  <IonIcon icon={barChartOutline} />
-                  <span>Estadísticas</span>
-                </a>
-
-                <a href="/busqueda" className="sidebar-link active">
-                  <IonIcon icon={searchOutline} />
-                  <span>Buscar</span>
-                </a>
-
-                <a href="/ajustes" className="sidebar-link">
-                  <IonIcon icon={settingsOutline} />
-                  <span>Ajustes</span>
-                </a>
-
-              </nav>
-
-            </div>
-          </aside>
 
           {/* -------- CONTENIDO PRINCIPAL -------- */}
           <main className="search-main">
@@ -196,11 +166,7 @@ const Busqueda: React.FC = () => {
                 </div>
               ))}
 
-              {filtered.length === 0 && (
-                <p className="search-empty">
-                  No se encontraron resultados para “{query}”.
-                </p>
-              )}
+          
             </div>
 
           </main>
